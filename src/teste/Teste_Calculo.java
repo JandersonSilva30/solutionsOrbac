@@ -11,9 +11,9 @@ public class Teste_Calculo {
 		// TODO Auto-generated method stub
 		
 		// carrgando singleton
-		String path = "C:/Users/janderson/Downloads/orbac/plugins";		
+		String path = "arquivos/orbac/plugins";		
 		COrbacCore core = COrbacCore.GetTheInstance(path);		
-		String path_police = "C:/Users/janderson/Downloads/orbac/examples/hospital.pof";
+		String path_police = "arquivos/examples/hospital.pof";
 		
 		AbstractOrbacPolicy p = core.LoadPolicy(path_police);
 		
