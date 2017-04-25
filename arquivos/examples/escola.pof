@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<XmlOrbacPolicy>
+<attributes>
+<name>escola</name>
+<creationDate>2017.04.12 21:17:10</creationDate>
+<modificationDate>2017.04.12 21:56:25</modificationDate>
+<version>1.0</version>
+<information>?</information>
+</attributes>
+<abstractPolicy>
+<organization name="adOrBAC">
+<activity name="delegate"/>
+<activity name="transfer"/>
+<activity name="create"/>
+<activity name="revoke"/>
+<activity name="delete"/>
+<activity name="manage"/>
+<view name="view_view"/>
+<view name="view_assignment_view"/>
+<view name="organization_hierarchy_view"/>
+<view name="role_hierarchy_view"/>
+<view name="role_view"/>
+<view name="grant_option_view"/>
+<view name="license_transfer_view"/>
+<view name="activity_view"/>
+<view name="role_transfer_view"/>
+<view name="license_delegation_view"/>
+<view name="role_assignment_view"/>
+<view name="view_hierarchy_view"/>
+<view name="organization_view"/>
+<view name="activity_assignment_view"/>
+<view name="role_delegation_view"/>
+<view name="activity_hierarchy_view"/>
+<view name="license_view"/>
+</organization>
+<organization name="Escola_MariaDaLuz">
+<role name="professor"/>
+<role name="aluno"/>
+<role name="pos"/>
+<role name="doutorado"/>
+<role name="mestrado"/>
+<role name="mestre"/>
+<role name="graduacao"/>
+<role name="doutor"/>
+<activity name="acompanhar"/>
+<activity name="acesso"/>
+<activity name="ministrar"/>
+<view name="mecanica"/>
+<view name="infomatica"/>
+<view name="sala"/>
+<view name="servidores"/>
+<view name="salaAula"/>
+<view name="laboratorio"/>
+<view name="server2"/>
+<view name="server1"/>
+</organization>
+<organization_hierarchy sub_organization="Escola_MariaDaLuz" super_organization="adOrBAC"/>
+<context evaluated_at_derivation_time="false" name="Expediente" type="TemporalContext">
+<definition organization="Escola_MariaDaLuz">(h&gt;=8) &amp; (h&lt;=18)</definition>
+</context>
+<object_assignment creationDate="2017.04.12 21:56:25" object="organization_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:58:21" object="nuvem" organization="Escola_MariaDaLuz" view="server2"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="acompanhar" organization="Escola_MariaDaLuz" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="grant_option_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="grant_option_view" organization="adOrBAC" view="grant_option_view"/>
+<object_assignment creationDate="2017.04.12 21:55:00" object="sala2" organization="Escola_MariaDaLuz" view="salaAula"/>
+<object_assignment creationDate="2017.04.12 21:44:22" object="sala1" organization="Escola_MariaDaLuz" view="salaAula"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:45:31" object="ra_Escola_MariaDaLuz_daniel_doutorado" organization="Escola_MariaDaLuz" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_delete_delete" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:58:00" object="vh_Escola_MariaDaLuz_server2_servidores" organization="Escola_MariaDaLuz" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="laboratorio" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_view" organization="adOrBAC" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="servidores" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="delete" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:49:47" object="vh_Escola_MariaDaLuz_mecanica_laboratorio" organization="Escola_MariaDaLuz" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="pos" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:45:11" object="ra_Escola_MariaDaLuz_janderson_mestrado" organization="Escola_MariaDaLuz" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:59:47" object="aa_Escola_MariaDaLuz_ler_acesso" organization="Escola_MariaDaLuz" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="professor" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_revoke_revoke" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:45:58" object="ra_Escola_MariaDaLuz_djamel_doutor" organization="Escola_MariaDaLuz" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_delegation_view" organization="adOrBAC" view="license_delegation_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 22:09:04" object="p1" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 22:10:28" object="p2" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_hierarchy_view" organization="adOrBAC" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:32:45" object="vh_Escola_MariaDaLuz_salaAula_sala" organization="Escola_MariaDaLuz" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="view_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="organization_hierarchy_view" organization="adOrBAC" view="organization_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_assignment_view" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:43:30" object="rh_Escola_MariaDaLuz_mestre_professor" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="vh_adOrBAC_grant_option_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="view_assignment_view" organization="adOrBAC" view="view_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:57:45" object="email" organization="Escola_MariaDaLuz" view="server1"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_transfer_view" organization="adOrBAC" view="license_transfer_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 22:01:36" object="aa_Escola_MariaDaLuz_enviar_acesso" organization="Escola_MariaDaLuz" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="mestrado" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="salaAula" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="acesso" organization="Escola_MariaDaLuz" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="transfer" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:48:15" object="salaProf" organization="Escola_MariaDaLuz" view="sala"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="vh_adOrBAC_role_delegation_view_role_assignment_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 22:04:02" object="r3" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="vh_adOrBAC_license_delegation_view_license_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 22:04:29" object="r4" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 22:02:41" object="r1" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 22:03:39" object="r2" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_view" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 22:07:34" object="r7" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 22:05:49" object="r5" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 22:06:24" object="r6" organization="Escola_MariaDaLuz" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="activity_hierarchy_view" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:58:00" object="server2" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:57:21" object="server1" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:54:04" object="mec2" organization="Escola_MariaDaLuz" view="mecanica"/>
+<object_assignment creationDate="2017.04.12 21:53:46" object="mec1" organization="Escola_MariaDaLuz" view="mecanica"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_delegate_delegate" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="sala" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="delegate" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="create" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="mecanica" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="mestre" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_transfer_transfer" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:29:12" object="rh_Escola_MariaDaLuz_pos_aluno" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="view_hierarchy_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_assignment_view" organization="adOrBAC" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="doutor" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="manage" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:52:51" object="info2" organization="Escola_MariaDaLuz" view="infomatica"/>
+<object_assignment creationDate="2017.04.12 21:52:23" object="info1" organization="Escola_MariaDaLuz" view="infomatica"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="vh_adOrBAC_license_transfer_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="ah_adOrBAC_create_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="organization_view" organization="adOrBAC" view="organization_view"/>
+<object_assignment creationDate="2017.04.12 21:29:47" object="rh_Escola_MariaDaLuz_doutorado_pos" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:57:21" object="vh_Escola_MariaDaLuz_server1_servidores" organization="Escola_MariaDaLuz" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="view_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="organization_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="infomatica" organization="Escola_MariaDaLuz" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_create_create" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="license_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="ah_adOrBAC_delete_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_delegation_view" organization="adOrBAC" view="role_delegation_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="view_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aluno" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="revoke" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="doutorado" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:29:22" object="rh_Escola_MariaDaLuz_graduacao_aluno" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:49:59" object="vh_Escola_MariaDaLuz_infomatica_laboratorio" organization="Escola_MariaDaLuz" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="role_transfer_view" organization="adOrBAC" view="role_transfer_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="ministrar" organization="Escola_MariaDaLuz" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="graduacao" organization="Escola_MariaDaLuz" view="role_view"/>
+<object_assignment creationDate="2017.04.12 21:29:37" object="rh_Escola_MariaDaLuz_mestrado_pos" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="admin_manage_license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="vh_adOrBAC_role_transfer_view_role_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:37:19" object="rh_Escola_MariaDaLuz_doutor_professor" organization="Escola_MariaDaLuz" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 21:56:25" object="aa_adOrBAC_manage_manage" organization="adOrBAC" view="activity_assignment_view"/>
+</abstractPolicy>
+<classes>
+<class name="commitment_class">
+<attribute name="task" value="null"/>
+<attribute name="violationContext" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="obligator" value="null"/>
+<attribute name="obligatee" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="user_password_class">
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</class>
+<class name="inhibition_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="role_hierarchy_class">
+<attribute name="senior_role" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_role" value="null"/>
+</class>
+<class name="activity_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+</class>
+<class name="activity_hierarchy_class">
+<attribute name="authority" value="null"/>
+<attribute name="senior_activity" value="null"/>
+<attribute name="junior_activity" value="null"/>
+</class>
+<class name="license_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="view_hierarchy_class">
+<attribute name="senior_view" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_view" value="null"/>
+</class>
+<class name="role_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+<attribute name="grantor" value="null"/>
+</class>
+</classes>
+<subjects>
+<subject name="daniel">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="adOrBAC"/>
+<subject name="djamel">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="janderson">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="admin">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="333547411228765445654476765417741474654083165475"/>
+</subject>
+<subject name="Escola_MariaDaLuz"/>
+</subjects>
+<actions>
+<action name="enviar"/>
+<action name="ler"/>
+</actions>
+<objects>
+<object name="r2">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="professor"/>
+<attribute name="context" value="Expediente"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="laboratorio"/>
+</object>
+<object name="vh_Escola_MariaDaLuz_salaAula_sala">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="sala"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_view" value="salaAula"/>
+</object>
+<object name="r3">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="professor"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="servidores"/>
+</object>
+<object name="r4">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="aluno"/>
+<attribute name="context" value="Expediente"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="salaAula"/>
+</object>
+<object name="r5">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="graduacao"/>
+<attribute name="context" value="Expediente"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="info1"/>
+</object>
+<object name="r6">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="pos"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="laboratorio"/>
+</object>
+<object name="r7">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="aluno"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="email"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_doutor_professor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="professor"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="doutor"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_graduacao_aluno">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="aluno"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="graduacao"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_doutorado_pos">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="pos"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="doutorado"/>
+</object>
+<object name="aa_adOrBAC_manage_manage">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="manage"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="manage"/>
+</object>
+<object name="vh_Escola_MariaDaLuz_server1_servidores">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="servidores"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_view" value="server1"/>
+</object>
+<object name="vh_adOrBAC_role_delegation_view_role_assignment_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_assignment_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_delegation_view"/>
+</object>
+<object name="ah_adOrBAC_delete_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="delete"/>
+</object>
+<object name="aa_adOrBAC_revoke_revoke">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="revoke"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="revoke"/>
+</object>
+<object name="vh_Escola_MariaDaLuz_mecanica_laboratorio">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="laboratorio"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_view" value="mecanica"/>
+</object>
+<object name="salaProf"/>
+<object name="ra_Escola_MariaDaLuz_djamel_doutor">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="doutor"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="assignee" value="djamel"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="ra_Escola_MariaDaLuz_janderson_mestrado">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="mestrado"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="assignee" value="janderson"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="vh_adOrBAC_role_transfer_view_role_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_transfer_view"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_mestre_professor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="professor"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="mestre"/>
+</object>
+<object name="aa_adOrBAC_delete_delete">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delete"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delete"/>
+</object>
+<object name="aa_adOrBAC_create_create">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="create"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="create"/>
+</object>
+<object name="nuvem"/>
+<object name="aa_adOrBAC_delegate_delegate">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delegate"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delegate"/>
+</object>
+<object name="info1"/>
+<object name="vh_adOrBAC_license_transfer_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_transfer_view"/>
+</object>
+<object name="vh_adOrBAC_license_delegation_view_license_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_delegation_view"/>
+</object>
+<object name="info2"/>
+<object name="p1">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="aluno"/>
+<attribute name="context" value="Expediente"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="nuvem"/>
+</object>
+<object name="p2">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="janderson"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="mecanica"/>
+</object>
+<object name="admin_manage_license_view">
+<instance_of name="license_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="grantee" value="admin"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="manage"/>
+<attribute name="target" value="license_view"/>
+</object>
+<object name="vh_adOrBAC_grant_option_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="grant_option_view"/>
+</object>
+<object name="sala1"/>
+<object name="sala2"/>
+<object name="aa_Escola_MariaDaLuz_enviar_acesso">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="acesso"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="assignee" value="enviar"/>
+</object>
+<object name="aa_adOrBAC_transfer_transfer">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="transfer"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="transfer"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_mestrado_pos">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="pos"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="mestrado"/>
+</object>
+<object name="email"/>
+<object name="ah_adOrBAC_create_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="create"/>
+</object>
+<object name="vh_Escola_MariaDaLuz_infomatica_laboratorio">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="laboratorio"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_view" value="infomatica"/>
+</object>
+<object name="rh_Escola_MariaDaLuz_pos_aluno">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="aluno"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_role" value="pos"/>
+</object>
+<object name="mec2"/>
+<object name="ra_Escola_MariaDaLuz_daniel_doutorado">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="doutorado"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="assignee" value="daniel"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="mec1"/>
+<object name="vh_Escola_MariaDaLuz_server2_servidores">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="servidores"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="junior_view" value="server2"/>
+</object>
+<object name="aa_Escola_MariaDaLuz_ler_acesso">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="acesso"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="assignee" value="ler"/>
+</object>
+<object name="r1">
+<instance_of name="license_class"/>
+<attribute name="authority" value="Escola_MariaDaLuz"/>
+<attribute name="grantee" value="professor"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="acesso"/>
+<attribute name="target" value="sala"/>
+</object>
+</objects>
+<comments>
+<abstract_rules/>
+</comments>
+</XmlOrbacPolicy>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<XmlOrbacPolicy>
+<attributes>
+<name>meuteste2</name>
+<creationDate>2017.04.06 15:54:21</creationDate>
+<modificationDate>2017.04.06 15:58:13</modificationDate>
+<version>1.0</version>
+<information>?</information>
+</attributes>
+<abstractPolicy>
+<organization name="adOrBAC">
+<activity name="delegate"/>
+<activity name="transfer"/>
+<activity name="create"/>
+<activity name="revoke"/>
+<activity name="delete"/>
+<activity name="manage"/>
+<view name="view_view"/>
+<view name="view_assignment_view"/>
+<view name="organization_hierarchy_view"/>
+<view name="role_hierarchy_view"/>
+<view name="role_view"/>
+<view name="grant_option_view"/>
+<view name="license_transfer_view"/>
+<view name="activity_view"/>
+<view name="role_transfer_view"/>
+<view name="license_delegation_view"/>
+<view name="view_hierarchy_view"/>
+<view name="role_assignment_view"/>
+<view name="organization_view"/>
+<view name="activity_assignment_view"/>
+<view name="role_delegation_view"/>
+<view name="activity_hierarchy_view"/>
+<view name="license_view"/>
+</organization>
+<organization name="clinica">
+<role name="enfermeiro"/>
+<role name="medico"/>
+<activity name="ler"/>
+<view name="documentos"/>
+</organization>
+<organization_hierarchy sub_organization="clinica" super_organization="adOrBAC"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="organization_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="vh_adOrBAC_license_delegation_view_license_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_view" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="medico" organization="clinica" view="role_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_hierarchy_view" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="grant_option_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="grant_option_view" organization="adOrBAC" view="grant_option_view"/>
+<object_assignment creationDate="2017.04.06 15:59:29" object="prt_pac_1" organization="clinica" view="documentos"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_delegate_delegate" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="delegate" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="create" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_delete_delete" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_view" organization="adOrBAC" view="role_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="delete" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:56:12" object="ra_clinica_janderson_medico" organization="clinica" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_transfer_transfer" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="view_hierarchy_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_revoke_revoke" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_assignment_view" organization="adOrBAC" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_delegation_view" organization="adOrBAC" view="license_delegation_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="manage" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_hierarchy_view" organization="adOrBAC" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:56:36" object="ra_clinica_alana_enfermeiro" organization="clinica" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="vh_adOrBAC_license_transfer_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="ah_adOrBAC_create_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:47" object="documentos" organization="clinica" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="organization_view" organization="adOrBAC" view="organization_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="view_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="view_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="organization_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="organization_hierarchy_view" organization="adOrBAC" view="organization_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_assignment_view" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_create_create" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="ah_adOrBAC_delete_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="vh_adOrBAC_grant_option_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="view_assignment_view" organization="adOrBAC" view="view_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_delegation_view" organization="adOrBAC" view="role_delegation_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="view_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_transfer_view" organization="adOrBAC" view="license_transfer_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="revoke" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="ler" organization="clinica" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="license_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:57:23" object="aa_clinica_ler_dados_ler" organization="clinica" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="enfermeiro" organization="clinica" view="role_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="role_transfer_view" organization="adOrBAC" view="role_transfer_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="transfer" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="vh_adOrBAC_role_delegation_view_role_assignment_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="admin_manage_license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="vh_adOrBAC_role_transfer_view_role_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="activity_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.06 15:58:13" object="aa_adOrBAC_manage_manage" organization="adOrBAC" view="activity_assignment_view"/>
+</abstractPolicy>
+<classes>
+<class name="commitment_class">
+<attribute name="task" value="null"/>
+<attribute name="violationContext" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="obligator" value="null"/>
+<attribute name="obligatee" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="user_password_class">
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</class>
+<class name="inhibition_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="role_hierarchy_class">
+<attribute name="senior_role" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_role" value="null"/>
+</class>
+<class name="activity_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+</class>
+<class name="activity_hierarchy_class">
+<attribute name="authority" value="null"/>
+<attribute name="senior_activity" value="null"/>
+<attribute name="junior_activity" value="null"/>
+</class>
+<class name="license_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="view_hierarchy_class">
+<attribute name="senior_view" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_view" value="null"/>
+</class>
+<class name="role_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+<attribute name="grantor" value="null"/>
+</class>
+</classes>
+<subjects>
+<subject name="alana">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="adOrBAC"/>
+<subject name="clinica"/>
+<subject name="janderson">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="admin">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="333547411228765445654476765417741474654083165475"/>
+</subject>
+</subjects>
+<actions>
+<action name="ler_dados"/>
+</actions>
+<objects>
+<object name="ah_adOrBAC_create_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="create"/>
+</object>
+<object name="admin_manage_license_view">
+<instance_of name="license_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="grantee" value="admin"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="manage"/>
+<attribute name="target" value="license_view"/>
+</object>
+<object name="vh_adOrBAC_role_transfer_view_role_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_transfer_view"/>
+</object>
+<object name="aa_adOrBAC_manage_manage">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="manage"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="manage"/>
+</object>
+<object name="prt_pac_1"/>
+<object name="vh_adOrBAC_grant_option_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="grant_option_view"/>
+</object>
+<object name="aa_adOrBAC_delete_delete">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delete"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delete"/>
+</object>
+<object name="vh_adOrBAC_role_delegation_view_role_assignment_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_assignment_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_delegation_view"/>
+</object>
+<object name="ah_adOrBAC_delete_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="delete"/>
+</object>
+<object name="aa_adOrBAC_create_create">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="create"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="create"/>
+</object>
+<object name="aa_adOrBAC_delegate_delegate">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delegate"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delegate"/>
+</object>
+<object name="aa_adOrBAC_revoke_revoke">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="revoke"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="revoke"/>
+</object>
+<object name="vh_adOrBAC_license_transfer_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_transfer_view"/>
+</object>
+<object name="aa_adOrBAC_transfer_transfer">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="transfer"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="transfer"/>
+</object>
+<object name="vh_adOrBAC_license_delegation_view_license_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_delegation_view"/>
+</object>
+<object name="ra_clinica_alana_enfermeiro">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="enfermeiro"/>
+<attribute name="authority" value="clinica"/>
+<attribute name="assignee" value="alana"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_clinica_ler_dados_ler">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="ler"/>
+<attribute name="authority" value="clinica"/>
+<attribute name="assignee" value="ler_dados"/>
+</object>
+<object name="ra_clinica_janderson_medico">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="medico"/>
+<attribute name="authority" value="clinica"/>
+<attribute name="assignee" value="janderson"/>
+<attribute name="grantor" value="null"/>
+</object>
+</objects>
+<comments>
+<abstract_rules/>
+</comments>
+</XmlOrbacPolicy>

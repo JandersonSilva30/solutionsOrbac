@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<XmlOrbacPolicy>
+<attributes>
+<name>campus Prova</name>
+<creationDate>2012.03.19 14:38:42</creationDate>
+<modificationDate>2013.09.09 15:03:29</modificationDate>
+<version>1.0</version>
+<information>This policy is an example based on a fictionnal engineering school campus. It demonstrates abstract entities hierarchies, contextual rules and delegation operations. The view definitions and some contexts are expressed using the Prova language.
+
+This policy is one of the examples bundled with MotOrBAC when downloading it from the official website (http://motorbac.sourceforge.net).</information>
+</attributes>
+<abstractPolicy>
+<organization name="campus_B"/>
+<organization name="university">
+<role name="phd_student"/>
+<role name="replacement_teacher"/>
+<activity name="correct"/>
+<view name="test"/>
+<view name="replacement_teacher_role_delegation"/>
+</organization>
+<organization name="campus_A"/>
+<organization name="adOrBAC">
+<activity name="revoke"/>
+<activity name="transfer"/>
+<activity name="delete"/>
+<activity name="manage"/>
+<activity name="create"/>
+<activity name="delegate"/>
+<view name="role_view"/>
+<view name="activity_assignment_view"/>
+<view name="activity_view"/>
+<view name="organization_view"/>
+<view name="role_transfer_view"/>
+<view name="view_hierarchy_view"/>
+<view name="view_view"/>
+<view name="grant_option_view"/>
+<view name="view_assignment_view"/>
+<view name="activity_hierarchy_view"/>
+<view name="role_delegation_view"/>
+<view name="role_assignment_view"/>
+<view name="role_hierarchy_view"/>
+<view name="organization_hierarchy_view"/>
+<view name="license_view"/>
+<view name="license_delegation_view"/>
+<view name="license_transfer_view"/>
+</organization>
+<organization name="engineering_school">
+<role name="network_admin"/>
+<role name="student_A3"/>
+<role name="student"/>
+<role name="student_A1"/>
+<role name="student_A2"/>
+<role name="teacher"/>
+<activity name="use_teaching_resource"/>
+<activity name="teaching"/>
+<activity name="network_maintenance"/>
+<view name="computer"/>
+<view name="use_teaching_resource_assignment_view"/>
+<view name="teaching_delegation_view"/>
+<view name="firewall"/>
+<view name="network_resource"/>
+<view name="student_class"/>
+</organization>
+<organization_hierarchy sub_organization="campus_B" super_organization="engineering_school"/>
+<organization_hierarchy sub_organization="university" super_organization="adOrBAC"/>
+<organization_hierarchy sub_organization="campus_A" super_organization="engineering_school"/>
+<organization_hierarchy sub_organization="engineering_school" super_organization="adOrBAC"/>
+<context name="teaching_ctx" type="TemporalContext">
+<definition organization="engineering_school">(h&gt;=8 &amp; h&lt;=12) | (h&gt;=14 &amp; h&lt;=18)</definition>
+</context>
+<context name="computer_study_bs" type="BeanShellContext">
+<definition organization="campus_B">import java.util.Date;
+import java.util.Calendar;
+// get hour
+int hour = date.get(Calendar.HOUR_OF_DAY);
+result = hour &gt;= 14 &amp;&amp; hour &lt;= 18;</definition>
+<definition organization="campus_A">import java.util.Date;
+import java.util.Calendar;
+// get hour
+int hour = date.get(Calendar.HOUR_OF_DAY);
+result = hour &gt;= 8 &amp;&amp; hour &lt;= 12;</definition>
+</context>
+<context name="net_maintenance_ctx" type="TemporalContext">
+<definition organization="campus_B">(h&gt;=16 &amp; h&lt;=18)</definition>
+<definition organization="campus_A">(h&gt;=8 &amp; h&lt;=10) &amp; (dow#6 &amp; dow#7)</definition>
+</context>
+<context name="revocationCtx" type="ProvaContext">
+<definition organization="university">hold(Org, Subject, Action, Object):-
+    attribute(Object, grantor, Subject).</definition>
+<definition organization="engineering_school">hold(Org, Subject, Action, Object):-
+    attribute(Object, grantor, Subject).</definition>
+</context>
+<context name="teaching_ctx_bs" type="BeanShellContext">
+<definition organization="engineering_school">import java.util.Date;
+import java.util.Calendar;
+// get hour
+int hour = date.get(Calendar.HOUR_OF_DAY);
+result = (hour &gt;= 8 &amp;&amp; hour &lt;= 12) || (hour &gt;= 14 &amp;&amp; hour &lt;= 18);</definition>
+</context>
+<context name="computer_study" type="TemporalContext">
+<definition organization="campus_B">(h&gt;=14 &amp; h&lt;=18)</definition>
+<definition organization="campus_A">(h&gt;=8 &amp; h&lt;=12)</definition>
+</context>
+<context name="net_maintenance_ctx_bs" type="BeanShellContext">
+<definition organization="campus_B">import java.util.Date;
+import java.util.Calendar;
+// get hour
+int hour = date.get(Calendar.HOUR_OF_DAY);
+result = hour &gt;= 16 &amp;&amp; hour &lt;= 18;</definition>
+<definition organization="campus_A">import java.util.Date;
+import java.util.Calendar;
+// get hour and day of week
+int hour = date.get(Calendar.HOUR_OF_DAY);
+int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
+result = ( hour &gt;= 8 &amp;&amp; hour &lt;= 10 ) &amp;&amp; 
+         ( dayOfWeek != Calendar.SATURDAY &amp;&amp;
+           dayOfWeek != Calendar.SUNDAY );</definition>
+</context>
+<context name="network_emergency" type="UserDefinedContext">
+<definition organization="engineering_school">false</definition>
+</context>
+<view_definition abstract_entity="teaching_delegation_view" name="view_definition_delegation" type="CProvaEntityDefinition">
+<definition organization="engineering_school">bind(Org, Entity, AbstractEntity):-
+	attribute(Entity, privilege, teaching),
+	attribute(Entity, target, student_class),
+	attribute(Entity, grantee, Grantee),
+	empower(university, Grantee, replacement_teacher),
+	attribute(Grantee, experience, Xp),
+	greaterEq(Xp, 4).</definition>
+</view_definition>
+<view_definition abstract_entity="replacement_teacher_role_delegation" name="view_definition_role_deleg" type="CProvaEntityDefinition">
+<definition organization="university">bind(Org, Entity, AbstractEntity):-
+    attribute(Entity, assignee, Assignee),
+    empower(Org, Assignee, phd_student).</definition>
+</view_definition>
+<view_definition abstract_entity="use_teaching_resource_assignment_view" name="view_definition_example" type="CProvaEntityDefinition">
+<definition organization="engineering_school">bind(Org, Entity, AbstractEntity):-
+    attribute(Entity, assignee, Action),
+    attribute(Action, student_software, true).</definition>
+</view_definition>
+<object_assignment creationDate="2013.09.09 15:03:29" object="grant_option_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_delegate_delegate" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="view_hierarchy_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_A_jean_student_A1" organization="campus_A" view="role_assignment_view"/>
+<object_assignment creationDate="2013.08.06 16:54:39" object="vh_university_replacement_teacher_role_delegation_role_delegation_view" organization="university" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="vh_adOrBAC_role_transfer_view_role_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="network_admin" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="steven" organization="engineering_school" view="student_class"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="replacement_teacher_role_delegation" organization="university" view="view_view"/>
+<object_assignment creationDate="2013.08.01 15:25:31" object="ra_campus_B_thierry_teacher" organization="campus_B" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_engineering_school_edit_configuration_network_maintenance" organization="engineering_school" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="create" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="use_teaching_resource" organization="engineering_school" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_delegation_view" organization="adOrBAC" view="role_delegation_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="vh_adOrBAC_grant_option_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="delegate" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_revoke_revoke" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.08.01 15:29:39" object="ra_university_anatole_replacement_teacher" organization="university" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_engineering_school_student_A1_student" organization="engineering_school" view="role_hierarchy_view"/>
+<object_assignment creationDate="2013.08.06 16:54:39" object="perm_correct" organization="university" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_engineering_school_teach_openoffice_teaching" organization="engineering_school" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_manage_manage" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="teacher" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="organization_view" organization="adOrBAC" view="organization_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_engineering_school_student_A3_student" organization="engineering_school" view="role_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="perm_student_network" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="vh_adOrBAC_license_transfer_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_assignment_view" organization="adOrBAC" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_engineering_school_use_dev_environment_use_teaching_resource" organization="engineering_school" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_hierarchy_view" organization="adOrBAC" view="role_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_transfer_view" organization="adOrBAC" view="role_transfer_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_B_gerard_network_admin" organization="campus_B" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="transfer" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="student" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2013.07.11 17:55:33" object="teaching_delegation_view" organization="engineering_school" view="teaching_delegation_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="organization_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="grant_option_view" organization="adOrBAC" view="grant_option_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_assignment_view" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="student_prohib" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="test" organization="university" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="firewall_campus_A" organization="campus_A" view="firewall"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="ap_role_revoke" organization="university" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_view" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_transfer_view" organization="adOrBAC" view="license_transfer_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="test3" organization="university" view="test"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="test2" organization="university" view="test"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="firewall" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="ra_university_emile_replacement_teacher" organization="university" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="revoke" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="jean" organization="engineering_school" view="student_class"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="correct" organization="university" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="computer_2" organization="campus_B" view="computer"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="computer_1" organization="campus_A" view="computer"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="use_teaching_resource_assignment_view" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="ap_deleg" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_engineering_school_firewall_network_resource" organization="engineering_school" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="view_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="vh_adOrBAC_role_delegation_view_role_assignment_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="delete" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="ra_university_phil_phd_student" organization="university" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_delete_delete" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="vh_engineering_school_teaching_delegation_view_license_delegation_view" organization="engineering_school" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="vh_adOrBAC_license_delegation_view_license_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.08.01 15:51:14" object="ap_revoke" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="perm_teaching" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="aa_university_manual_correction_correct" organization="university" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="perm_admin_net" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_transfer_transfer" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="teaching" organization="engineering_school" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_engineering_school_use_openoffice_use_teaching_resource" organization="engineering_school" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="manage" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="view_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_engineering_school_student_A2_student" organization="engineering_school" view="role_hierarchy_view"/>
+<object_assignment creationDate="2013.07.11 14:41:31" object="ra_university_andre_replacement_teacher" organization="university" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="teaching_delegation_view" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ap3" organization="engineering_school" view="license_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="ap_role_deleg" organization="university" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_hierarchy_view" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="ah_adOrBAC_delete_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="ah_adOrBAC_create_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="computer" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="replacement_teacher_role_delegation" organization="university" view="replacement_teacher_role_delegation"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_engineering_school_teach_programming_teaching" organization="engineering_school" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.08.07 10:40:55" object="test1" organization="university" view="test"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="replacement_teacher" organization="university" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_A_marc_network_admin" organization="campus_A" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_delegation_view" organization="adOrBAC" view="license_delegation_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_B_steven_student_A3" organization="campus_B" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="aa_adOrBAC_create_create" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="organization_hierarchy_view" organization="adOrBAC" view="organization_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_view" organization="adOrBAC" view="role_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="phd_student" organization="university" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_A_robert_network_admin" organization="campus_A" view="role_assignment_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="organization_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="view_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="activity_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_adOrBAC_use_teaching_resource_assignment_view_activity_assignment_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="student_A1" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="license_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="student_A2" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_engineering_school_computer_network_resource" organization="engineering_school" view="view_hierarchy_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="student_A3" organization="engineering_school" view="role_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="network_resource" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_campus_A_tony_teacher" organization="campus_A" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="firewall_campus_B" organization="campus_B" view="firewall"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="role_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="network_maintenance" organization="engineering_school" view="activity_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="admin_manage_license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="student_class" organization="engineering_school" view="view_view"/>
+<object_assignment creationDate="2013.09.09 15:03:29" object="view_assignment_view" organization="adOrBAC" view="view_assignment_view"/>
+<role_separation_constraint creationDate="2012.03.19 14:38:42" first_entity="network_admin" first_organization="engineering_school" second_entity="student" second_organization="engineering_school"/>
+<activity_separation_constraint creationDate="2012.03.19 14:38:42" first_entity="teaching" first_organization="engineering_school" second_entity="network_maintenance" second_organization="engineering_school"/>
+<activity_separation_constraint creationDate="2012.03.19 14:38:42" first_entity="use_teaching_resource" first_organization="engineering_school" second_entity="network_maintenance" second_organization="engineering_school"/>
+<rule_priority creationDate="2012.03.19 14:38:42" first_organization="engineering_school" first_rule="perm_admin_net" second_organization="engineering_school" second_rule="student_prohib"/>
+</abstractPolicy>
+<classes>
+<class name="inhibition_class">
+<attribute name="authority" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="target" value="null"/>
+<attribute name="grantee" value="null"/>
+</class>
+<class name="teaching_attributes">
+<attribute name="experience" value="0"/>
+</class>
+<class name="software">
+<attribute name="student_software" value="false"/>
+</class>
+<class name="role_hierarchy_class">
+<attribute name="authority" value="null"/>
+<attribute name="junior_role" value="null"/>
+<attribute name="senior_role" value="null"/>
+</class>
+<class name="license_class">
+<attribute name="authority" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="target" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="null"/>
+</class>
+<class name="view_hierarchy_class">
+<attribute name="junior_view" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="senior_view" value="null"/>
+</class>
+<class name="commitment_class">
+<attribute name="authority" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="task" value="null"/>
+<attribute name="obligator" value="null"/>
+<attribute name="violationContext" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="target" value="null"/>
+<attribute name="obligatee" value="null"/>
+</class>
+<class name="activity_hierarchy_class">
+<attribute name="authority" value="null"/>
+<attribute name="junior_activity" value="null"/>
+<attribute name="senior_activity" value="null"/>
+</class>
+<class name="activity_assignment_class">
+<attribute name="authority" value="null"/>
+<attribute name="assignment" value="null"/>
+<attribute name="assignee" value="null"/>
+</class>
+<class name="role_assignment_class">
+<attribute name="authority" value="null"/>
+<attribute name="assignment" value="null"/>
+<attribute name="assignee" value="null"/>
+<attribute name="grantor" value="null"/>
+</class>
+<class name="user_password_class">
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</class>
+</classes>
+<subjects>
+<subject name="campus_B"/>
+<subject name="jean">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="university"/>
+<subject name="marc">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="campus_A"/>
+<subject name="anatole">
+<instance_of name="teaching_attributes"/>
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+<attribute name="experience" value="8"/>
+</subject>
+<subject name="gaston">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="phil">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="adOrBAC"/>
+<subject name="steven">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="thierry">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="1026545065489654812865431655256541165500654513599654426546960110"/>
+</subject>
+<subject name="andre">
+<instance_of name="teaching_attributes"/>
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="654922965420654976542306545846551365408965432655166552866126"/>
+<attribute name="experience" value="5"/>
+</subject>
+<subject name="emile">
+<instance_of name="teaching_attributes"/>
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="60831076550012527654457465427654436549665514666552610365454"/>
+<attribute name="experience" value="1"/>
+</subject>
+<subject name="admin">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="333547411228765445654476765417741474654083165475"/>
+</subject>
+<subject name="tony">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="6550165477655256551210947654136550565457655351185865535196548610"/>
+</subject>
+<subject name="gerard">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="robert">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="engineering_school"/>
+</subjects>
+<actions>
+<action name="use_openoffice">
+<instance_of name="software"/>
+<attribute name="student_software" value="true"/>
+</action>
+<action name="teach_openoffice"/>
+<action name="use_hdd_ghost">
+<instance_of name="software"/>
+<attribute name="student_software" value="false"/>
+</action>
+<action name="use_dev_environment">
+<instance_of name="software"/>
+<attribute name="student_software" value="true"/>
+</action>
+<action name="manual_correction"/>
+<action name="edit_configuration"/>
+<action name="use_mail_client">
+<instance_of name="software"/>
+<attribute name="student_software" value="true"/>
+</action>
+<action name="teach_programming"/>
+</actions>
+<objects>
+<object name="student_prohib">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="privilege" value="network_maintenance"/>
+<attribute name="target" value="network_resource"/>
+<attribute name="context" value="default_context"/>
+<attribute name="grantee" value="student"/>
+</object>
+<object name="ra_campus_A_jean_student_A1">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_A"/>
+<attribute name="assignment" value="student_A1"/>
+<attribute name="assignee" value="jean"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_adOrBAC_manage_manage">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="manage"/>
+<attribute name="assignee" value="manage"/>
+</object>
+<object name="vh_university_replacement_teacher_role_delegation_role_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="replacement_teacher_role_delegation"/>
+<attribute name="authority" value="university"/>
+<attribute name="senior_view" value="role_delegation_view"/>
+</object>
+<object name="admin_manage_license_view">
+<instance_of name="license_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="manage"/>
+<attribute name="target" value="license_view"/>
+<attribute name="context" value="default_context"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="admin"/>
+</object>
+<object name="vh_adOrBAC_license_transfer_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="license_transfer_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+</object>
+<object name="ra_university_anatole_replacement_teacher">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="assignment" value="replacement_teacher"/>
+<attribute name="assignee" value="anatole"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="vh_engineering_school_computer_network_resource">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="computer"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="senior_view" value="network_resource"/>
+</object>
+<object name="aa_engineering_school_use_openoffice_use_teaching_resource">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="assignment" value="use_teaching_resource"/>
+<attribute name="assignee" value="use_openoffice"/>
+</object>
+<object name="test1"/>
+<object name="vh_engineering_school_teaching_delegation_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="teaching_delegation_view"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+</object>
+<object name="perm_admin_net">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="network_maintenance"/>
+<attribute name="target" value="network_resource"/>
+<attribute name="context" value="net_maintenance_ctx"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="network_admin"/>
+</object>
+<object name="vh_adOrBAC_grant_option_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="grant_option_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+</object>
+<object name="computer_1"/>
+<object name="aa_engineering_school_edit_configuration_network_maintenance">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="assignment" value="network_maintenance"/>
+<attribute name="assignee" value="edit_configuration"/>
+</object>
+<object name="computer_3"/>
+<object name="aa_engineering_school_use_dev_environment_use_teaching_resource">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="assignment" value="use_teaching_resource"/>
+<attribute name="assignee" value="use_dev_environment"/>
+</object>
+<object name="computer_2"/>
+<object name="aa_adOrBAC_create_create">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="create"/>
+<attribute name="assignee" value="create"/>
+</object>
+<object name="ah_adOrBAC_delete_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_activity" value="delete"/>
+<attribute name="senior_activity" value="manage"/>
+</object>
+<object name="ap3">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="manage"/>
+<attribute name="target" value="use_teaching_resource_assignment_view"/>
+<attribute name="context" value="teaching_ctx"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="network_admin"/>
+</object>
+<object name="ap_deleg">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="delegate"/>
+<attribute name="target" value="teaching_delegation_view"/>
+<attribute name="context" value="default_context"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="teacher"/>
+</object>
+<object name="ap_role_deleg">
+<instance_of name="license_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="delegate"/>
+<attribute name="target" value="replacement_teacher_role_delegation"/>
+<attribute name="context" value="default_context"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="replacement_teacher"/>
+</object>
+<object name="ra_campus_B_gerard_network_admin">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_B"/>
+<attribute name="assignment" value="network_admin"/>
+<attribute name="assignee" value="gerard"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="ra_campus_A_robert_network_admin">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_A"/>
+<attribute name="assignment" value="network_admin"/>
+<attribute name="assignee" value="robert"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="ap_role_revoke">
+<instance_of name="license_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="revoke"/>
+<attribute name="target" value="replacement_teacher_role_delegation"/>
+<attribute name="context" value="revocationCtx"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="replacement_teacher"/>
+</object>
+<object name="vh_engineering_school_firewall_network_resource">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="firewall"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="senior_view" value="network_resource"/>
+</object>
+<object name="firewall_campus_A"/>
+<object name="firewall_campus_B"/>
+<object name="ra_university_andre_replacement_teacher">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="assignment" value="replacement_teacher"/>
+<attribute name="assignee" value="andre"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="vh_adOrBAC_role_transfer_view_role_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="role_transfer_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_view" value="role_delegation_view"/>
+</object>
+<object name="test2"/>
+<object name="test3"/>
+<object name="aa_engineering_school_teach_programming_teaching">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="assignment" value="teaching"/>
+<attribute name="assignee" value="teach_programming"/>
+</object>
+<object name="ra_campus_A_tony_teacher">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_A"/>
+<attribute name="assignment" value="teacher"/>
+<attribute name="assignee" value="tony"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="perm_teaching">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="teaching"/>
+<attribute name="target" value="student_class"/>
+<attribute name="context" value="teaching_ctx"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="teacher"/>
+</object>
+<object name="ra_university_phil_phd_student">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="assignment" value="phd_student"/>
+<attribute name="assignee" value="phil"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_university_manual_correction_correct">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="assignment" value="correct"/>
+<attribute name="assignee" value="manual_correction"/>
+</object>
+<object name="ra_university_emile_replacement_teacher">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="assignment" value="replacement_teacher"/>
+<attribute name="assignee" value="emile"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="rh_engineering_school_student_A2_student">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="junior_role" value="student_A2"/>
+<attribute name="senior_role" value="student"/>
+</object>
+<object name="perm_correct">
+<instance_of name="license_class"/>
+<attribute name="authority" value="university"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="correct"/>
+<attribute name="target" value="test"/>
+<attribute name="context" value="default_context"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="replacement_teacher"/>
+</object>
+<object name="aa_adOrBAC_delete_delete">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="delete"/>
+<attribute name="assignee" value="delete"/>
+</object>
+<object name="aa_adOrBAC_revoke_revoke">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="revoke"/>
+<attribute name="assignee" value="revoke"/>
+</object>
+<object name="perm_student_network">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="use_teaching_resource"/>
+<attribute name="target" value="computer"/>
+<attribute name="context" value="computer_study"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="student"/>
+</object>
+<object name="ra_campus_A_marc_network_admin">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_A"/>
+<attribute name="assignment" value="network_admin"/>
+<attribute name="assignee" value="marc"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="rh_engineering_school_student_A3_student">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="junior_role" value="student_A3"/>
+<attribute name="senior_role" value="student"/>
+</object>
+<object name="ra_campus_B_steven_student_A3">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_B"/>
+<attribute name="assignment" value="student_A3"/>
+<attribute name="assignee" value="steven"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="vh_adOrBAC_role_delegation_view_role_assignment_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="role_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_view" value="role_assignment_view"/>
+</object>
+<object name="ap_revoke">
+<instance_of name="license_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="privilege" value="revoke"/>
+<attribute name="target" value="teaching_delegation_view"/>
+<attribute name="context" value="revocationCtx"/>
+<attribute name="grantor" value="null"/>
+<attribute name="grantee" value="teacher"/>
+</object>
+<object name="rh_engineering_school_student_A1_student">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="junior_role" value="student_A1"/>
+<attribute name="senior_role" value="student"/>
+</object>
+<object name="vh_engineering_school_use_teaching_resource_assignment_view_activity_assignment_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="use_teaching_resource_assignment_view"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="senior_view" value="activity_assignment_view"/>
+</object>
+<object name="aa_adOrBAC_transfer_transfer">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="transfer"/>
+<attribute name="assignee" value="transfer"/>
+</object>
+<object name="ah_adOrBAC_create_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_activity" value="create"/>
+<attribute name="senior_activity" value="manage"/>
+</object>
+<object name="vh_adOrBAC_license_delegation_view_license_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="junior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_view" value="license_view"/>
+</object>
+<object name="aa_engineering_school_teach_openoffice_teaching">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="engineering_school"/>
+<attribute name="assignment" value="teaching"/>
+<attribute name="assignee" value="teach_openoffice"/>
+</object>
+<object name="ra_campus_B_thierry_teacher">
+<instance_of name="role_assignment_class"/>
+<attribute name="authority" value="campus_B"/>
+<attribute name="assignment" value="teacher"/>
+<attribute name="assignee" value="thierry"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_adOrBAC_delegate_delegate">
+<instance_of name="activity_assignment_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignment" value="delegate"/>
+<attribute name="assignee" value="delegate"/>
+</object>
+</objects>
+<comments>
+<abstract_rules>
+<rule_comment comment="Students are explicitely forbidden from making any maintenance operation on network hardwar. This rule is common to the two campuses" name="student_prohib"/>
+<rule_comment comment="The teacher role is permited to teach a student class in the engineering school organization. This rule is common to the two campuses. This rule is activated by a temporal condition" name="perm_teaching"/>
+<rule_comment comment="A network administrator can make network maintenance activities on hardware that is part of the network ressource. This rule is common to the two campuses. This rule is activated by a temporal condition" name="perm_admin_net"/>
+<rule_comment comment="Students can use software related to teaching on computer in the engineering school organization. This rule is common to the two campuses. This rule is activated by a temporal condition" name="perm_student_network"/>
+</abstract_rules>
+</comments>
+</XmlOrbacPolicy>

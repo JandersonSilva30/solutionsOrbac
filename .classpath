@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="arquivos"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="arquivos/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/antlrworks-1.4.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/appframework-1.0.3.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/icu4j-3.4.4.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/iri-0.8.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/javassist.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/motorbac2.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/orbac.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/org.eclipse.osgi_3.5.2.R35x_v20100126.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/prova.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/syntax.jar"/>
+	<classpathentry kind="lib" path="arquivos/lib/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
