@@ -10,6 +10,7 @@ public final class LoadPolicyAll {
 	private AbstractOrbacPolicy police;	
 	
 	private String path = "arquivos/orbac/plugins";
+	
 	//private String path_police = "arquivos/examples/escola.pof";
 	private String path_police = "arquivos/examples/hospital.pof";
 	
