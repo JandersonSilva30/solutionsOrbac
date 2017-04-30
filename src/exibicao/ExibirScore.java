@@ -1,6 +1,5 @@
 package exibicao;
 
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
@@ -29,9 +28,9 @@ public class ExibirScore {
 		
 	private Set<CAbstractConflict> v;
 	private AbstractOrbacPolicy p ;
-	private Map<String, Integer> score;
+	
 		
-	private String[] colunasTabela = new String[]{ "Regra","Organização", "Qtd_Subjects", "Qtd_Actions", "Qtd_Objetcs", "Score" };  
+	private String[] colunasTabela = new String[]{ "Regra","Organização","Tipo","Role", "Qtd_Subjects","Activity", "Qtd_Actions","View", "Qtd_Objetcs", "Score" };  
 	private DefaultTableModel tab = new DefaultTableModel(null,colunasTabela);
 		
 	//construtor
@@ -39,8 +38,7 @@ public class ExibirScore {
 				
 		this.p =LoadPolicyAll.getInstance().getPolice();	//obtendo as politicas		
 		this.v = this.p.GetAbstractConflicts();				//obtendo os conflitos		
-		this.score = Score.getInstance().getValores(); 		//obtendo valores do score
-			
+					
 		this.carregaTabela();								//carregando os dados obtidos		
 	}	
 
@@ -57,10 +55,14 @@ public class ExibirScore {
 						
 						c.GetFirstRule().GetName(),
 						c.GetFirstRule().GetOrganization(),
-						Integer.toString(this.verificaSubject(c.GetFirstRule().GetRole())),						
+						Score.getInstance().tipoRegra(c.GetFirstRule().GetType()),
+						c.GetFirstRule().GetRole(),
+						Integer.toString(this.verificaSubject(c.GetFirstRule().GetRole())),
+						c.GetFirstRule().GetActivity(),
 						Integer.toString(this.verificaAction(c.GetFirstRule().GetActivity())),
+						c.GetFirstRule().GetView(),
 						Integer.toString(this.verificaObjects(c.GetFirstRule().GetView())),
-						this.obterScore(c.GetFirstRule().GetName())							                
+						Score.getInstance().obterScore(c.GetFirstRule().GetName())											                
 		            }); //tabela regra1
 				
 				
@@ -68,10 +70,14 @@ public class ExibirScore {
 						
 						c.GetSecondRule().GetName(),
 						c.GetSecondRule().GetOrganization(),
+						Score.getInstance().tipoRegra(c.GetSecondRule().GetType()),
+						c.GetSecondRule().GetRole(),
 						Integer.toString(this.verificaSubject(c.GetSecondRule().GetRole())),
+						c.GetSecondRule().GetActivity(),
 						Integer.toString(this.verificaAction(c.GetSecondRule().GetActivity())),
+						c.GetSecondRule().GetView(),
 						Integer.toString(this.verificaObjects(c.GetSecondRule().GetView())),
-						this.obterScore(c.GetSecondRule().GetName())					
+						Score.getInstance().obterScore(c.GetSecondRule().GetName())	
 		            }); //tabela regra 2
 				
 				//esse bloco pode ser retirado depois, foi feito apenas pra acompanhar o loop
@@ -93,19 +99,6 @@ public class ExibirScore {
 		}											// fim do else		
 	}
 	
-	// esse metodo obtem o valor do MAP gerado na classe "Score" baseado no nome da regra, 
-	//que nesse caso é a chave no MAP 
-	private String obterScore(String nome){
-		
-		Integer valor = this.score.get(nome);
-		
-		if(valor == null){
-			return "valor não aplicavel";
-		}else{
-			return Integer.toString(valor);
-		}	
-		
-	}
 	
 	private int verificaSubject(String a) throws COrbacException{
 						

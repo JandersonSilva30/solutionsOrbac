@@ -37,7 +37,7 @@ public class ExibirConflitos {
 		                c.GetFirstRule().GetActivity(),
 		                c.GetFirstRule().GetView(),
 		                c.GetFirstRule().GetContext(),
-		                this.tipoRegra(c.GetFirstRule().GetType())	                
+		                Score.getInstance().tipoRegra(c.GetFirstRule().GetType())		                	                
 		            }); //tabela regra1
 				
 				//extraindo dados da segunda regra
@@ -48,7 +48,7 @@ public class ExibirConflitos {
 		                c.GetSecondRule().GetActivity(),
 		                c.GetSecondRule().GetView(),
 		                c.GetSecondRule().GetContext(),
-		                this.tipoRegra(c.GetSecondRule().GetType())     
+		                Score.getInstance().tipoRegra(c.GetSecondRule().GetType())
 		            }); //tabela regra 2
 			}//fim do for			
 		}//fim do if
@@ -56,31 +56,4 @@ public class ExibirConflitos {
 		new GerarTela(tab);
 		
 	}
-	
-		
-	//regra auxiliar para extrair o nome da regra atraves do codigo
-	private String tipoRegra(int regra){		
-
-		String s="";
-
-		switch(regra){
-
-		case 0 : s = "permissão";
-		break;
-
-		case 1 : s = "proibição";
-		break;
-
-		case 2 : s = "obrigacao";
-		break;
-
-		default: s = "Invalid type";
-		break;		
-
-		}		
-		return s;
-
-	}	
-	
-
 }

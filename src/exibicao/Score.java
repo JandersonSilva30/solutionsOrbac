@@ -19,8 +19,7 @@ public final class Score {
 	int total;
 	
 	private Score(){
-		super();
-		
+		super();		
 		valores = new HashMap<String,Integer>() ;
 				
 		try {
@@ -42,7 +41,7 @@ public final class Score {
 
 	public Map<String, Integer> getValores() {
 		return valores;
-	}
+	}	
 
 	private void preencheValores(){
 		
@@ -67,6 +66,16 @@ public final class Score {
 		this.imprime();
 	}
 	
+	private void imprime(){
+		
+		Set<String> g = this.valores.keySet();
+		
+		for(String a : g){
+			System.out.println(a+ " - "+valores.get(a) );
+		}
+		
+	}
+	
 	private int calculaScore(CAbstractRule c) throws COrbacException {
 		
 		role 		= new SubjectsAffecteds().getSubEntity(c.GetRole());
@@ -79,13 +88,41 @@ public final class Score {
 				
 	}
 	
-	private void imprime(){
+	//--------------------------------------------------------------------
+	//Regras abaixo usadas para auxiliar classes externas	
 		
-		Set<String> g = this.valores.keySet();
+	public String obterScore(String nome){
 		
-		for(String a : g){
-			System.out.println(a+ " - "+valores.get(a) );
-		}
+		Integer valor = this.valores.get(nome);
+		
+		if(valor == null){
+			return "valor não aplicavel";
+		}else{
+			return Integer.toString(valor);
+		}	
 		
 	}
+	
+	public String tipoRegra(int tipo){		
+
+		String s="";
+
+		switch(tipo){
+
+		case 0 : s = "permissão";
+		break;
+
+		case 1 : s = "proibição";
+		break;
+
+		case 2 : s = "obrigacao";
+		break;
+
+		default: s = "Invalid type";
+		break;		
+
+		}		
+		return s;
+
+	}	
 }

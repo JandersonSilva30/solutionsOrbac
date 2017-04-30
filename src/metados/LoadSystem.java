@@ -9,9 +9,9 @@ public class LoadSystem {
 	//construtor
 	public LoadSystem() throws Exception {
 					
-		//new ExibirScore();
+		new ExibirScore();
 		
-		new ExibirConflitos();
+		//new ExibirConflitos();
 	}
 	
 	
