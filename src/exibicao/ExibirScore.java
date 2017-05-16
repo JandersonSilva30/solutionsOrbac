@@ -30,7 +30,8 @@ public class ExibirScore {
 	private AbstractOrbacPolicy p ;
 	
 		
-	private String[] colunasTabela = new String[]{ "Regra","Organização","Tipo","Role", "Qtd_Subjects","Activity", "Qtd_Actions","View", "Qtd_Objetcs", "Score" };  
+	private String[] colunasTabela = new String[]{ "Regra","Organização","Tipo","Role", "Qtd_Subjects",
+			"Role/Subject","Activity", "Qtd_Actions","Activity/Action","View", "Qtd_Objetcs", "View/Object","Context","Score" };  
 	private DefaultTableModel tab = new DefaultTableModel(null,colunasTabela);
 		
 	//construtor
@@ -42,7 +43,7 @@ public class ExibirScore {
 		this.carregaTabela();								//carregando os dados obtidos		
 	}	
 
-	private void carregaTabela() throws COrbacException{
+	private void carregaTabela() {
 		
 		if (!this.v.isEmpty()){    					//se a tabela não estiver vazia
 			
@@ -51,34 +52,50 @@ public class ExibirScore {
 			for(CAbstractConflict c : this.v){		//percorrendo o Set e preenche a tabela
 				contadorLoop++;
 								
-				tab.addRow(new String[] {  			//extraindo dados da primeira regra
-						
+				try {
+					tab.addRow(new String[] {  			//extraindo dados da primeira regra
+							
 						c.GetFirstRule().GetName(),
 						c.GetFirstRule().GetOrganization(),
 						Score.getInstance().tipoRegra(c.GetFirstRule().GetType()),
 						c.GetFirstRule().GetRole(),
-						Integer.toString(this.verificaSubject(c.GetFirstRule().GetRole())),
+						Integer.toString(new SubjectsAffecteds().getSubEntity(c.GetFirstRule().GetRole())),
+						SubjectsAffecteds.getInstance().getTypeEntity(c.GetFirstRule().GetRole()),
 						c.GetFirstRule().GetActivity(),
-						Integer.toString(this.verificaAction(c.GetFirstRule().GetActivity())),
+						Integer.toString(new ActionsAffecteds().getSubEntity(c.GetFirstRule().GetActivity())),
+						ActionsAffecteds.getInstance().getTypeEntity(c.GetFirstRule().GetActivity()),
 						c.GetFirstRule().GetView(),
-						Integer.toString(this.verificaObjects(c.GetFirstRule().GetView())),
+						Integer.toString(new ObjectsAffecteds().getSubEntity(c.GetFirstRule().GetView())),
+						ObjectsAffecteds.getInstance().getTypeEntity(c.GetFirstRule().GetView()),
+						c.GetFirstRule().GetContext(),
 						Score.getInstance().obterScore(c.GetFirstRule().GetName())											                
-		            }); //tabela regra1
+					});	 //tab regra1
 				
 				
-				tab.addRow(new String[] {  			//extraindo dados da segunda regra
+					tab.addRow(new String[] {  			//extraindo dados da segunda regra
 						
 						c.GetSecondRule().GetName(),
 						c.GetSecondRule().GetOrganization(),
 						Score.getInstance().tipoRegra(c.GetSecondRule().GetType()),
 						c.GetSecondRule().GetRole(),
-						Integer.toString(this.verificaSubject(c.GetSecondRule().GetRole())),
+						Integer.toString(new SubjectsAffecteds().getSubEntity(c.GetSecondRule().GetRole())),
+						SubjectsAffecteds.getInstance().getTypeEntity(c.GetSecondRule().GetRole()),
 						c.GetSecondRule().GetActivity(),
-						Integer.toString(this.verificaAction(c.GetSecondRule().GetActivity())),
+						Integer.toString(new ActionsAffecteds().getSubEntity(c.GetSecondRule().GetActivity())),
+						ActionsAffecteds.getInstance().getTypeEntity(c.GetSecondRule().GetActivity()),
 						c.GetSecondRule().GetView(),
-						Integer.toString(this.verificaObjects(c.GetSecondRule().GetView())),
+						Integer.toString(new ObjectsAffecteds().getSubEntity(c.GetSecondRule().GetView())),
+						ObjectsAffecteds.getInstance().getTypeEntity(c.GetSecondRule().GetView()),
+						c.GetSecondRule().GetContext(),
 						Score.getInstance().obterScore(c.GetSecondRule().GetName())	
-		            }); //tabela regra 2
+		            }); //tab regra 2
+				
+				} catch (COrbacException e) {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao obter os conflitos", 
+							"Ops! Algo deu errado", JOptionPane.ERROR_MESSAGE);
+					
+					e.printStackTrace();
+				}
 				
 				//esse bloco pode ser retirado depois, foi feito apenas pra acompanhar o loop
 				System.err.println("----------------------------------");				
@@ -89,14 +106,16 @@ public class ExibirScore {
 			
 			System.out.println("RODOU  "+ contadorLoop);
 			
-			new GerarTela(tab);
+			
 			
 		}else {										//fim do if			
 			
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro ao obter as Politicas", 
-					"Ops! Algo deu errado", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum conflito", 
+					"Isso é ótimo", JOptionPane.INFORMATION_MESSAGE);
 		
-		}											// fim do else		
+		}											// fim do else	
+		
+		new GerarTela(tab);
 	}
 	
 	

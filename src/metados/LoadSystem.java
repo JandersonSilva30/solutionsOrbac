@@ -10,8 +10,16 @@ public class LoadSystem {
 	public LoadSystem() throws Exception {
 					
 		new ExibirScore();
+			
 		
-		//new ExibirConflitos();
+		System.err.println("resolvendo");
+		
+		Thread.sleep(2000);
+		new SolveConflicts();
+		
+		
+		
+		
 	}
 	
 	

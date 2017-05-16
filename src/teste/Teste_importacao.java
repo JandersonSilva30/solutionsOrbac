@@ -10,8 +10,12 @@ import orbac.AbstractOrbacPolicy;
 import orbac.COrbacCore;
 import orbac.abstractEntities.AbstractEntityHierarchy;
 import orbac.concreteEntities.CConcreteEntityAssignement;
+import orbac.conflict.CAbstractConflict;
+import orbac.conflict.CConcreteConflict;
 import orbac.exception.COrbacException;
 import orbac.securityRules.CAbstractRule;
+import orbac.securityRules.CConcretePermission;
+import orbac.securityRules.CRulePriority;
 
 public class Teste_importacao {
 
@@ -21,13 +25,56 @@ public class Teste_importacao {
 		// carrgando singleton
 		String path = "arquivos/plugins";		
 		COrbacCore core = COrbacCore.GetTheInstance(path);		
-		String path_police = "arquivos/examples/hospital.pof";
+		String path_police = "arquivos/examples/hospital2.pof";
 		
 		AbstractOrbacPolicy p = core.LoadPolicy(path_police);
 		
-		//Calculos calc = new Calculos();
+//		for(CAbstractConflict c : p.GetAbstractConflicts()){
+//			p.SetRule1AboveRule2(c.GetSecondRule().GetName(),
+//								 c.GetFirstRule().GetName(),
+//								 c.GetSecondRule().GetOrganization(),
+//								 c.GetFirstRule().GetOrganization());
+//			
+//		}
 		
-		System.out.println(Score.getInstance().getValores().get("i4"));
+		if(p.GetConcreteConflicts().isEmpty()){
+			
+			System.out.println("nao há conflitos concretos");
+			
+		}else{	
+		
+			for(CConcreteConflict c : p.GetConcreteConflicts()){
+			
+						
+				System.out.println(c.GetFirstRule()+ "em conflito com >>  "+c.GetSecondRule());
+				
+			}			
+		
+		}
+		System.out.println("regras ja aplicadas");
+		
+		
+		System.out.println("verificando prioridades");
+		
+		for(CRulePriority cRulePriority : p.GetRulesPriorities()){
+			System.out.println(cRulePriority.GetFirstRule()+" >> "+cRulePriority.GetSecondRule());
+		}
+		
+		
+		System.out.println("verificando permissoes");
+		for(CConcretePermission permission : p.GetConcretePermissions()){
+			System.out.println(
+				"["+p.IsPermited(permission)+"]"+
+				permission.GetName()+" / "+permission.GetSubject()+" / "+permission.GetAction()+" / "+
+				permission.GetObject()+" >>>> "+permission.toString());
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

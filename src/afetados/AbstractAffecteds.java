@@ -9,6 +9,7 @@ public abstract class AbstractAffecteds  {
 	int aux =0;
 	AbstractOrbacPolicy p;
 	
+	
 	public AbstractAffecteds() {
 		super();		
 		this.p = LoadPolicyAll.getInstance().getPolice();
@@ -17,6 +18,8 @@ public abstract class AbstractAffecteds  {
 	
 	//metodos
 	public abstract int getSubEntity(String s) throws COrbacException;
+	
+	public abstract String getTypeEntity(String s) throws COrbacException;
 	
 	/**
 	 * Esse método em especial verifica se a entidade é Role/ Activity/View ou Subject/action/object 

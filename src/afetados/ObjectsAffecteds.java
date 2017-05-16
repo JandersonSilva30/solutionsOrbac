@@ -6,6 +6,7 @@ import orbac.exception.COrbacException;
 
 public class ObjectsAffecteds extends AbstractAffecteds {
 
+	private static final ObjectsAffecteds INSTANCE = new ObjectsAffecteds();
 	
 	@Override
 	public int getSubEntity(String s) throws COrbacException {
@@ -35,6 +36,19 @@ public class ObjectsAffecteds extends AbstractAffecteds {
 		
 		return this.aux;
 	}
+	
+	@Override
+	public String getTypeEntity(String s) throws COrbacException {
+		
+		if(p.IsView(s)){
+			
+			return "View";
+					
+		}else{
+			
+			return "Object";
+		}
+	}
 
 	@Override
 	protected int GetValue(String nameView) throws COrbacException {
@@ -47,6 +61,10 @@ public class ObjectsAffecteds extends AbstractAffecteds {
 			
 			return 1;						//caso contrario é um objeto e ja enta na conta
 		}
+	}
+
+	public static ObjectsAffecteds getInstance() {
+		return INSTANCE;
 	}
 
 }

@@ -12,7 +12,7 @@ public final class LoadPolicyAll {
 	private String path = "arquivos/orbac/plugins";
 	
 	//private String path_police = "arquivos/examples/escola.pof";
-	private String path_police = "arquivos/examples/hospital.pof";
+	private String path_police = "arquivos/examples/hospital2.pof";
 	
 	private static final LoadPolicyAll INSTANCE = new LoadPolicyAll();
 	

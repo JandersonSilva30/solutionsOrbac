@@ -47,11 +47,11 @@ public final class Score {
 		
 		Set<String> s = this.res.keySet();     // obtem as chaves do MAP
 		
-		System.out.println("valor de objetos encontrados: "+ res.size());   //apenas informa o numeor de objetos no MAP
+		System.out.println("valor de Entidades encontradas: "+ res.size());   //apenas informa o numeor de objetos no MAP
 		
 		for(String regra : s){
 				
-			System.out.println("String obtida: "+ regra);  // confirmando o nome da regra
+			System.out.println("Nome da Regra: "+ regra);  // confirmando o nome da regra
 			try {
 				
 				valores.put(regra, this.calculaScore(res.get(regra)));				
@@ -96,7 +96,8 @@ public final class Score {
 		Integer valor = this.valores.get(nome);
 		
 		if(valor == null){
-			return "valor não aplicavel";
+			//return "valor não aplicavel";
+			return Integer.toString(0);
 		}else{
 			return Integer.toString(valor);
 		}	

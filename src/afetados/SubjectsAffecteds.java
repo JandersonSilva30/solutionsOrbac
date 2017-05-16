@@ -5,7 +5,8 @@ import java.util.HashSet;
 import orbac.exception.COrbacException;
 
 public class SubjectsAffecteds extends AbstractAffecteds {
-
+	
+	private static final SubjectsAffecteds INSTANCE = new SubjectsAffecteds();
 	
 	@Override
 	public int getSubEntity(String s) throws COrbacException {
@@ -35,6 +36,19 @@ public class SubjectsAffecteds extends AbstractAffecteds {
 		
 		return this.aux;
 	}
+	
+	@Override
+	public String getTypeEntity(String s) throws COrbacException {
+		
+		if(p.IsRole(s)){
+			
+			return "Role";
+			
+		}else{
+			return "Subject";
+		}
+	}
+	
 
 	@Override
 	protected int GetValue(String nameRole) throws COrbacException {
@@ -47,10 +61,11 @@ public class SubjectsAffecteds extends AbstractAffecteds {
 		}else{								//caso contrario, é um objeto e ja entra na conta
 			
 			return 1;
-		}
-		
-		
-			
+		}			
+	}
+	
+	public static SubjectsAffecteds getInstance() {
+		return INSTANCE;
 	}
 
 }

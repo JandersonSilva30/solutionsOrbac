@@ -5,7 +5,8 @@ import java.util.HashSet;
 import orbac.exception.COrbacException;
 
 public class ActionsAffecteds extends AbstractAffecteds {
-
+	
+	private static final ActionsAffecteds INSTANCE = new ActionsAffecteds();
 	
 	@Override
 	public int getSubEntity(String s) throws COrbacException {
@@ -35,6 +36,21 @@ public class ActionsAffecteds extends AbstractAffecteds {
 		
 		return this.aux;
 	}
+	
+	
+	@Override
+	public String getTypeEntity(String s) throws COrbacException {
+		
+		if(p.IsActivity(s)){
+			
+			return "Activity";
+			
+		}else{
+			
+			return "Action";
+						
+		}		
+	}
 
 	@Override
 	protected int GetValue(String nameActivity) throws COrbacException {
@@ -48,4 +64,11 @@ public class ActionsAffecteds extends AbstractAffecteds {
 			return 1;			
 		}			
 	}
+	
+	public static ActionsAffecteds getInstance() {
+		return INSTANCE;
+	}
+	
+
+	
 }

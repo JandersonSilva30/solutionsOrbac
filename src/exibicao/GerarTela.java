@@ -26,7 +26,7 @@ public class GerarTela {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JScrollPane scrollPane = new JScrollPane(table);
 		frame.add(scrollPane, BorderLayout.CENTER);
-		frame.setSize(1200,700);
+		frame.setSize(1350,700);
 		frame.setVisible(true);		
 	}	
 }
