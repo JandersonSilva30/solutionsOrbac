@@ -1,6 +1,7 @@
 package metados;
 
-import exibicao.ExibirConflitos;
+import javax.swing.JOptionPane;
+
 import exibicao.ExibirScore;
 
 public class LoadSystem {
@@ -8,16 +9,25 @@ public class LoadSystem {
 					
 	//construtor
 	public LoadSystem() throws Exception {
-					
-		new ExibirScore();
+				
+		//int resp;
+		
+		//resp = JOptionPane.showConfirmDialog(null, "deseja continuar?");
+		
+		//if(resp == JOptionPane.YES_OPTION){
 			
-		
-		System.err.println("resolvendo");
-		
-		Thread.sleep(2000);
-		new SolveConflicts();
-		
-		
+			new ExibirScore();
+			
+			System.err.println("resolvendo");
+			
+			//Thread.sleep(5000);
+			
+			new SolveConflicts();
+			
+		//}else{
+			//JOptionPane.showMessageDialog(null, "operação abortada");
+			
+		//}
 		
 		
 	}

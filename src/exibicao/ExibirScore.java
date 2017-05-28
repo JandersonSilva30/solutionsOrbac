@@ -29,9 +29,11 @@ public class ExibirScore {
 	private Set<CAbstractConflict> v;
 	private AbstractOrbacPolicy p ;
 	
-		
+	//string que forma o cabeçalho da tabela	
 	private String[] colunasTabela = new String[]{ "Regra","Organização","Tipo","Role", "Qtd_Subjects",
 			"Role/Subject","Activity", "Qtd_Actions","Activity/Action","View", "Qtd_Objetcs", "View/Object","Context","Score" };  
+	
+	//alocando a string anterior na variavel tab
 	private DefaultTableModel tab = new DefaultTableModel(null,colunasTabela);
 		
 	//construtor
@@ -104,9 +106,7 @@ public class ExibirScore {
 			
 			}//fim do for
 			
-			System.out.println("RODOU  "+ contadorLoop);
-			
-			
+			System.out.println("RODOU  "+ contadorLoop+ "  VEZES");			
 			
 		}else {										//fim do if			
 			
@@ -118,20 +118,22 @@ public class ExibirScore {
 		new GerarTela(tab);
 	}
 	
+//
+//	private int verificaSubject(String a) throws COrbacException{
+//						
+//		return new SubjectsAffecteds().getSubEntity(a);
+//	}
+//	
+//	private int verificaAction(String a) throws COrbacException{
+//		
+//		return new ActionsAffecteds().getSubEntity(a);
+//	}
+//	
+//	private int verificaObjects(String a) throws COrbacException{
+//		
+//		return new ObjectsAffecteds().getSubEntity(a);
+//	}
 	
-	private int verificaSubject(String a) throws COrbacException{
-						
-		return new SubjectsAffecteds().getSubEntity(a);
-	}
 	
-	private int verificaAction(String a) throws COrbacException{
-		
-		return new ActionsAffecteds().getSubEntity(a);
-	}
-	
-	private int verificaObjects(String a) throws COrbacException{
-		
-		return new ObjectsAffecteds().getSubEntity(a);
-	}
 
 }

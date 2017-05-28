@@ -47,7 +47,7 @@ public final class Score {
 		
 		Set<String> s = this.res.keySet();     // obtem as chaves do MAP
 		
-		System.out.println("valor de Entidades encontradas: "+ res.size());   //apenas informa o numeor de objetos no MAP
+		System.out.println("Quantidade de regras encontradas: "+ res.size());   //apenas informa o numeor de objetos no MAP
 		
 		for(String regra : s){
 				
@@ -70,8 +70,13 @@ public final class Score {
 		
 		Set<String> g = this.valores.keySet();
 		
+		System.out.println("--------------");
+		System.out.println("Regra\tScore");
+		System.out.println("--------------");
+		
 		for(String a : g){
-			System.out.println(a+ " - "+valores.get(a) );
+			System.out.println(a+"   -\t"+valores.get(a) );
+			System.out.println("--------------");
 		}
 		
 	}
@@ -82,7 +87,17 @@ public final class Score {
 		activity	= new ActionsAffecteds().getSubEntity(c.GetActivity());
 		view		= new ObjectsAffecteds().getSubEntity(c.GetView());
 		
-		total = role * activity *view; 
+		int tipo = c.GetType();
+		
+		if(tipo == 1){  //uma proibição
+			
+			total = (role * activity *view)*2;
+			
+		}else{			//para nosso caso, provavelmente permissão ou obrigação
+			total = role * activity *view;
+		}
+		 
+		//total = role * activity *view;
 		
 		return total;
 				
