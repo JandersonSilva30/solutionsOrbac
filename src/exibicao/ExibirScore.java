@@ -31,11 +31,14 @@ public class ExibirScore {
 	
 	//string que forma o cabeçalho da tabela	
 	private String[] colunasTabela = new String[]{ "Regra","Organização","Tipo","Role", "Qtd_Subjects",
-			"Role/Subject","Activity", "Qtd_Actions","Activity/Action","View", "Qtd_Objetcs", "View/Object","Context","Score" };  
+												   "Role/Subject","Activity", "Qtd_Actions","Activity/Action",
+												   "View", "Qtd_Objetcs", "View/Object","Context","Score" };  
 	
 	//alocando a string anterior na variavel tab
 	private DefaultTableModel tab = new DefaultTableModel(null,colunasTabela);
 		
+	
+	
 	//construtor
 	public ExibirScore() throws COrbacException {
 				
@@ -44,14 +47,17 @@ public class ExibirScore {
 					
 		this.carregaTabela();								//carregando os dados obtidos		
 	}	
+	
+	
 
 	private void carregaTabela() {
 		
 		if (!this.v.isEmpty()){    					//se a tabela não estiver vazia
 			
-			int contadorLoop =0;
+			int contadorLoop =0;					//contador usado para auxiliar
 			
 			for(CAbstractConflict c : this.v){		//percorrendo o Set e preenche a tabela
+				
 				contadorLoop++;
 								
 				try {
@@ -117,23 +123,4 @@ public class ExibirScore {
 		
 		new GerarTela(tab);
 	}
-	
-//
-//	private int verificaSubject(String a) throws COrbacException{
-//						
-//		return new SubjectsAffecteds().getSubEntity(a);
-//	}
-//	
-//	private int verificaAction(String a) throws COrbacException{
-//		
-//		return new ActionsAffecteds().getSubEntity(a);
-//	}
-//	
-//	private int verificaObjects(String a) throws COrbacException{
-//		
-//		return new ObjectsAffecteds().getSubEntity(a);
-//	}
-	
-	
-
 }

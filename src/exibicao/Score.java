@@ -11,12 +11,12 @@ import orbac.securityRules.CAbstractRule;
 
 public final class Score {	
 	
-	private Map<String, CAbstractRule> res ;	
 	private static final Score INSTANCE = new Score();
+	
+	private Map<String, CAbstractRule> res ;	
 	private Map<String, Integer> valores;	
 	
-	int role, activity, view;
-	int total;
+	int role, activity, view, total;
 	
 	private Score(){
 		super();		
@@ -39,10 +39,11 @@ public final class Score {
 		return INSTANCE;
 	}
 
-	public Map<String, Integer> getValores() {
-		return valores;
-	}	
+//	public Map<String, Integer> getValores() {
+//		return valores;
+//	}	
 
+	//Metodo responsavel em preencher a hashmap "valores"
 	private void preencheValores(){
 		
 		Set<String> s = this.res.keySet();     // obtem as chaves do MAP
@@ -57,7 +58,7 @@ public final class Score {
 				valores.put(regra, this.calculaScore(res.get(regra)));				
 				
 			} catch (COrbacException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}			
 			

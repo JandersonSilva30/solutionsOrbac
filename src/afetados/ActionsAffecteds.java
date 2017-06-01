@@ -10,8 +10,7 @@ public class ActionsAffecteds extends AbstractAffecteds {
 	
 	@Override
 	public int getSubEntity(String s) throws COrbacException {
-		// TODO Auto-generated method stub
-		
+				
 		int cont =   this.GetValue(s);
 		
 		//System.out.println(s+ "  possui " + cont+ "  Actions");
@@ -29,9 +28,6 @@ public class ActionsAffecteds extends AbstractAffecteds {
 				this.getSubEntity(a);								
 			}
 			
-		}else{
-			
-			return this.aux;
 		}
 		
 		return this.aux;
@@ -67,8 +63,5 @@ public class ActionsAffecteds extends AbstractAffecteds {
 	
 	public static ActionsAffecteds getInstance() {
 		return INSTANCE;
-	}
-	
-
-	
+	}	
 }

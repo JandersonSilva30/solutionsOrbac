@@ -69,15 +69,15 @@ public class SolveConflicts {
 			if(regra1 > regra2){
 				
 				p.SetRule1AboveRule2(c.GetFirstRule().GetName(),
-						 c.GetSecondRule().GetName(),
-						 c.GetFirstRule().GetOrganization(),
-						 c.GetSecondRule().GetOrganization());				
+						 			 c.GetSecondRule().GetName(),
+						 			 c.GetFirstRule().GetOrganization(),
+						 			 c.GetSecondRule().GetOrganization());				
 			}else{
 				
 				p.SetRule1AboveRule2(c.GetSecondRule().GetName(),
-						 c.GetFirstRule().GetName(),
-						 c.GetSecondRule().GetOrganization(),
-						 c.GetFirstRule().GetOrganization());				
+						 			 c.GetFirstRule().GetName(),
+						 			 c.GetSecondRule().GetOrganization(),
+						 			 c.GetFirstRule().GetOrganization());				
 			}			
 		}		
 	}
