@@ -9,7 +9,7 @@ public final class LoadPolicyAll {
 	private COrbacCore core;
 	private AbstractOrbacPolicy police;	
 	
-	private String path = "arquivos/orbac/plugins";
+	private String path = "/arquivos/orbac/plugins";
 	
 	//private String path_police = "arquivos/examples/escola.pof";
 	private String path_police = "arquivos/examples/hospital2.pof";
@@ -23,7 +23,7 @@ public final class LoadPolicyAll {
 		
 		try {
 			
-			this.police = core.LoadPolicy(this.path_police);
+			this.police = core.LoadPolicy(path_police);
 			
 		} catch (COrbacException e) {
 			
@@ -40,6 +40,12 @@ public final class LoadPolicyAll {
 	}
 
 	public AbstractOrbacPolicy getPolice() {
-		return police;
-	}	
+		return this.police;
+	}
+
+	public String getPath_police() {
+		return path_police;
+	}
+	
+	
 }

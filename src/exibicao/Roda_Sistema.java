@@ -1,8 +1,6 @@
-package teste;
+package exibicao;
 
 import javax.swing.JOptionPane;
-
-import org.apache.log4j.net.SimpleSocketServer;
 
 import metados.LoadSystem;
 import orbac.exception.COrbacException;
@@ -10,7 +8,7 @@ import orbac.exception.COrbacException;
 public class Roda_Sistema {
 
 	public static void main(String[] args) throws COrbacException, Exception {
-		// TODO Auto-generated method stub
+		
 		
 		//memoria total
 		long memtotal1 = Runtime.getRuntime().totalMemory();
@@ -18,12 +16,15 @@ public class Roda_Sistema {
 //		//memoria livre		
 		long memLivre1= Runtime.getRuntime().freeMemory();
 		
-		long initialTime = System.nanoTime();
+		//long initialTime = System.nanoTime();
+		
+		long initialTime = System.currentTimeMillis();
 			
 		
 		new LoadSystem();
 		
-		long tempoTotal= (System.nanoTime() - initialTime);
+		//long tempoTotal= (System.nanoTime() - initialTime);
+		long tempoTotal= (System.currentTimeMillis() - initialTime);
 		
 		long memtotal2 = Runtime.getRuntime().totalMemory();
 		long memLivre2= Runtime.getRuntime().freeMemory();

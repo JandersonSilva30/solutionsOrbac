@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import afetados.*;
+import control.*;
 import metados.LoadPolicyAll;
 import orbac.exception.COrbacException;
 import orbac.securityRules.CAbstractRule;
@@ -13,7 +13,7 @@ public final class Score {
 	
 	private static final Score INSTANCE = new Score();
 	
-	private Map<String, CAbstractRule> res ;	
+	private Map<String, CAbstractRule> abstractRules ;	
 	private Map<String, Integer> valores;	
 	
 	int role, activity, view, total;
@@ -24,7 +24,7 @@ public final class Score {
 				
 		try {
 			
-			this.res = LoadPolicyAll.getInstance().getPolice().GetAllAbstractRules(); //obtendo todas as regras abstratas
+			this.abstractRules = LoadPolicyAll.getInstance().getPolice().GetAllAbstractRules(); //obtendo todas as regras abstratas
 		
 		} catch (COrbacException e) {
 			
@@ -46,16 +46,16 @@ public final class Score {
 	//Metodo responsavel em preencher a hashmap "valores"
 	private void preencheValores(){
 		
-		Set<String> s = this.res.keySet();     // obtem as chaves do MAP
+		Set<String> idRule = this.abstractRules.keySet();     // obtem as chaves do MAP
 		
-		System.out.println("Quantidade de regras encontradas: "+ res.size());   //apenas informa o numeor de objetos no MAP
+		System.out.println("Quantidade de regras encontradas: "+ abstractRules.size());   //apenas informa o numeor de objetos no MAP
 		
-		for(String regra : s){
+		for(String nameRule : idRule){
 				
-			System.out.println("Nome da Regra: "+ regra);  // confirmando o nome da regra
+			System.out.println("Nome da Regra: "+ nameRule);  // confirmando o nome da regra
 			try {
 				
-				valores.put(regra, this.calculaScore(res.get(regra)));				
+				valores.put(nameRule, this.calculaScore(abstractRules.get(nameRule)));				
 				
 			} catch (COrbacException e) {
 				
@@ -82,13 +82,13 @@ public final class Score {
 		
 	}
 	
-	private int calculaScore(CAbstractRule c) throws COrbacException {
+	private int calculaScore(CAbstractRule rule) throws COrbacException {
 		
-		role 		= new SubjectsAffecteds().getSubEntity(c.GetRole());
-		activity	= new ActionsAffecteds().getSubEntity(c.GetActivity());
-		view		= new ObjectsAffecteds().getSubEntity(c.GetView());
+		role 		= new SubjectsAffecteds().getSubEntity(rule.GetRole());
+		activity	= new ActionsAffecteds().getSubEntity(rule.GetActivity());
+		view		= new ObjectsAffecteds().getSubEntity(rule.GetView());
 		
-		int tipo = c.GetType();
+		int tipo = rule.GetType();
 		
 		if(tipo == 1){  //uma proibição
 			
@@ -122,24 +122,24 @@ public final class Score {
 	
 	public String tipoRegra(int tipo){		
 
-		String s="";
+		String typeRule="";
 
 		switch(tipo){
 
-		case 0 : s = "permissão";
+		case 0 : typeRule = "permissão";
 		break;
 
-		case 1 : s = "proibição";
+		case 1 : typeRule = "proibição";
 		break;
 
-		case 2 : s = "obrigacao";
+		case 2 : typeRule = "obrigacao";
 		break;
 
-		default: s = "Invalid type";
+		default: typeRule = "Invalid type";
 		break;		
 
 		}		
-		return s;
+		return typeRule;
 
 	}	
 }

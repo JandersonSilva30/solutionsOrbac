@@ -1,7 +1,12 @@
-package metados;
+package control;
+
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
 
 import exibicao.ExibirScore;
 import exibicao.Score;
+import metados.LoadPolicyAll;
 import orbac.AbstractOrbacPolicy;
 import orbac.conflict.CAbstractConflict;
 import orbac.exception.COrbacException;
@@ -29,7 +34,7 @@ public class SolveConflicts {
 	public void solveConfli() throws COrbacException{
 		
 		for(CAbstractConflict c : p.GetAbstractConflicts()){
-			this.getHighScore(c);			
+			this.appyPriority(c);			
 		}
 		
 		System.out.println("regras ja aplicadas");
@@ -51,22 +56,48 @@ public class SolveConflicts {
 		}
 		
 		new ExibirScore();
+		
+		//this.savePolicy();		
+		
 	}
 	
-	private void getHighScore(CAbstractConflict c) throws COrbacException{
+	private void savePolicy(){
+		
+		int resp = JOptionPane.showConfirmDialog(null, "Deseja Salva as mudanças?");
+		
+		if (resp == JOptionPane.YES_OPTION) {
+			
+			try {				
+				p.WritePolicyFile(LoadPolicyAll.getInstance().getPath_police(), null);
+				System.err.println("REGRAS SALVAS COM SUCESSO!!");
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}else{
+			System.err.println("OPERAÇÃO ABORTADADA");
+		}
+		
+		
+		
+	}
+	
+	
+	private void appyPriority(CAbstractConflict c) throws COrbacException{
 		
 		String name1 = c.GetFirstRule().GetName();
 		String name2 = c.GetSecondRule().GetName();
 		
-		int regra1 = Integer.parseInt(Score.getInstance().obterScore(c.GetFirstRule().GetName()));
-		int regra2 = Integer.parseInt(Score.getInstance().obterScore(c.GetSecondRule().GetName()));
+		int scoreRule1 = Integer.parseInt(Score.getInstance().obterScore(name1));
+		int scoreRule2 = Integer.parseInt(Score.getInstance().obterScore(name2));
 		
-		if(regra1 == regra2){
+		if(scoreRule1 == scoreRule2){
 			
 			System.out.println("O conflito entre "+name1 +" >> "+name2+ " não pode ser resolvido por terem os Scores iguais");
 			
 		}else{			
-			if(regra1 > regra2){
+			if(scoreRule1 > scoreRule2){
 				
 				p.SetRule1AboveRule2(c.GetFirstRule().GetName(),
 						 			 c.GetSecondRule().GetName(),

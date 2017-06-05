@@ -2,6 +2,7 @@ package metados;
 
 import javax.swing.JOptionPane;
 
+import control.SolveConflicts;
 import exibicao.ExibirScore;
 
 public class LoadSystem {

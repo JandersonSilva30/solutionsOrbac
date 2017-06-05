@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<XmlOrbacPolicy>
+<attributes>
+<name>hospital_XmlOrbacPolicy</name>
+<creationDate>2012.03.19 14:38:42</creationDate>
+<modificationDate>2017.04.13 14:03:02</modificationDate>
+<version>1.0</version>
+<information>?</information>
+</attributes>
+<abstractPolicy>
+<organization name="adOrBAC">
+<activity name="delegate"/>
+<activity name="transfer"/>
+<activity name="create"/>
+<activity name="revoke"/>
+<activity name="delete"/>
+<activity name="manage"/>
+<view name="view_view"/>
+<view name="view_assignment_view"/>
+<view name="organization_hierarchy_view"/>
+<view name="role_hierarchy_view"/>
+<view name="role_view"/>
+<view name="grant_option_view"/>
+<view name="license_transfer_view"/>
+<view name="activity_view"/>
+<view name="role_transfer_view"/>
+<view name="license_delegation_view"/>
+<view name="role_assignment_view"/>
+<view name="view_hierarchy_view"/>
+<view name="organization_view"/>
+<view name="activity_assignment_view"/>
+<view name="role_delegation_view"/>
+<view name="activity_hierarchy_view"/>
+<view name="license_view"/>
+</organization>
+<organization name="city_hospital">
+<role name="ortopedista"/>
+<role name="anesthetist"/>
+<role name="intern"/>
+<role name="student"/>
+<role name="hospital_doctor"/>
+<role name="surgeon"/>
+<role name="extern"/>
+<role name="liberal_doctor"/>
+<role name="doctor"/>
+<role name="secretary"/>
+<role name="specialist"/>
+<role name="patient"/>
+<role name="nurse"/>
+<role name="medical_secretary"/>
+<activity name="anaesthetize"/>
+<activity name="prescribe_appointment"/>
+<activity name="read"/>
+<activity name="operate"/>
+<activity name="analyze"/>
+<activity name="prescribe_prescription"/>
+<activity name="handle"/>
+<activity name="prescribe"/>
+<activity name="write"/>
+<view name="personal_data"/>
+<view name="admin_data"/>
+<view name="vPatient"/>
+<view name="medical_file"/>
+<view name="sample"/>
+<view name="medical_data"/>
+</organization>
+<organization name="south_hospital"/>
+<organization name="north_hospital"/>
+<organization_hierarchy sub_organization="city_hospital" super_organization="adOrBAC"/>
+<organization_hierarchy sub_organization="south_hospital" super_organization="city_hospital"/>
+<organization_hierarchy sub_organization="north_hospital" super_organization="city_hospital"/>
+<context evaluated_at_derivation_time="false" name="afternoon" type="TemporalContext">
+<definition organization="city_hospital">(h&gt;=14) &amp; (h&lt;=18)</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="intern_presc_hour" type="ComposedContext">
+<definition organization="south_hospital">morning</definition>
+<definition organization="north_hospital">afternoon</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="referent_doctor" type="ProvaContext">
+<definition organization="city_hospital">hold(Org, Subject, Action, Object):-
+    empower(Org, Subject, doctor),
+    use(Org, Object, patient),
+    attribute(Object, assigned_doctor, Subject).</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="sample_analysis" type="BeanShellContext">
+<definition organization="south_hospital">result = object.GetAttributeAsString("type").equals("biopsy");</definition>
+<definition organization="north_hospital">result =	object.GetAttributeAsString("type").equals("blood") || 
+	object.GetAttributeAsString("type").equals("urine");</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="anesthesic_patient" type="BeanShellContext">
+<definition organization="city_hospital">result = object.GetAttributeAsString("anesthesia").equals("true");</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="emergency_ctx" type="UserDefinedContext">
+<definition organization="city_hospital">true</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="morning" type="TemporalContext">
+<definition organization="city_hospital">(h&gt;=8) &amp; (h&lt;=12)</definition>
+</context>
+<context evaluated_at_derivation_time="false" name="no_anesthesia" type="ComposedContext">
+<definition organization="city_hospital">!anesthesic_patient</definition>
+</context>
+<role_definition abstract_entity="intern" name="empower_interns" type="CProvaEntityDefinition">
+<definition organization="city_hospital">bind(Org, Entity, AbstractEntity):-
+	attribute(Entity, internship, obtained).</definition>
+</role_definition>
+<object_assignment creationDate="2017.04.13 14:03:02" object="organization_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="nurse" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="sample" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.12 13:27:23" object="ra_city_hospital_orto1_ortopedista" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="Patrice" organization="city_hospital" view="vPatient"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="secretary" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="grant_option_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="grant_option_view" organization="adOrBAC" view="grant_option_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="i2" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="i3" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="i1" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.12 16:14:01" object="i4" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.12 20:26:37" object="i5" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_city_hospital_Edouard_extern" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_north_hospital_blood_analysis_analyze" organization="north_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_city_hospital_Etienne_extern" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_delete_delete" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_write_db_write" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_prescribe_medecine_prescribe_prescription" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_specialist_hospital_doctor" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_view" organization="adOrBAC" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_city_hospital_admin_data_medical_file" organization="city_hospital" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="delete" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_revoke_revoke" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="specialist" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="medical_data" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_delegation_view" organization="adOrBAC" view="license_delegation_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_anesthetist_specialist" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="patrice_medical_data" organization="city_hospital" view="medical_data"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="admin_data" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_hierarchy_view" organization="adOrBAC" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_delegation_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_liberal_doctor_doctor" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_handle_db_handle" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="analyze" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="sample1" organization="north_hospital" view="sample"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="view_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="organization_hierarchy_view" organization="adOrBAC" view="organization_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_assignment_view" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="hospital_doctor" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="surgeon" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="prescribe_appointment" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="doctor" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="o1" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vh_adOrBAC_grant_option_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_city_hospital_personal_data_medical_file" organization="city_hospital" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="view_assignment_view" organization="adOrBAC" view="view_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="patrice_admin_data" organization="city_hospital" view="admin_data"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_surgeon_specialist" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_transfer_view" organization="adOrBAC" view="license_transfer_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="read" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="patient" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_medical_secretary_secretary" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="write" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p7" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_read_db_read" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="transfer" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="anaesthetize" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_aOperate_operate" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p1" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vh_adOrBAC_role_delegation_view_role_assignment_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p2" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_hospital_doctor_doctor" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p5" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vPatient" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p6" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2017.04.13 14:03:52" object="ra_south_hospital_Carol_nurse" organization="south_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p3" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="p4" organization="city_hospital" view="license_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_extern_student" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vh_adOrBAC_license_delegation_view_license_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="medical_secretary" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_view" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 12:41:17" object="ra_city_hospital_Carlos_anesthetist" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_city_hospital_prescribe_rdv_prescribe_appointment" organization="city_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="activity_hierarchy_view" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="prescribe" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="Paul" organization="city_hospital" view="vPatient"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="sample3" organization="south_hospital" view="sample"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="sample2" organization="south_hospital" view="sample"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ah_city_hospital_read_handle" organization="city_hospital" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_delegate_delegate" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="delegate" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="create" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ah_city_hospital_prescribe_prescription_prescribe" organization="city_hospital" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="extern" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="student" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="patrice_personnal_data" organization="city_hospital" view="personal_data"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="vh_city_hospital_medical_data_medical_file" organization="city_hospital" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_transfer_transfer" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="view_hierarchy_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="Peter" organization="city_hospital" view="vPatient"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_assignment_view" organization="adOrBAC" view="role_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="rh_city_hospital_intern_student" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_city_hospital_Isabelle_intern" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="manage" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="operate" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="anesthetist" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.12 12:10:35" object="ra_city_hospital_Alana_specialist" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="intern" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_city_hospital_Sandrine_medical_secretary" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vh_adOrBAC_license_transfer_view_license_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="ah_adOrBAC_create_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="organization_view" organization="adOrBAC" view="organization_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="view_assignment_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="organization_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="prescribe_prescription" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2017.04.12 13:26:45" object="rh_city_hospital_ortopedista_liberal_doctor" organization="city_hospital" view="role_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_create_create" organization="adOrBAC" view="activity_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="ortopedista" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="license_transfer_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="ah_adOrBAC_delete_manage" organization="adOrBAC" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="personal_data" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_delegation_view" organization="adOrBAC" view="role_delegation_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="view_hierarchy_view" organization="adOrBAC" view="view_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="liberal_doctor" organization="city_hospital" view="role_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="revoke" organization="adOrBAC" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ra_city_hospital_Chris_surgeon" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="medical_file" organization="city_hospital" view="view_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ah_city_hospital_prescribe_appointment_prescribe" organization="city_hospital" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="handle" organization="city_hospital" view="activity_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="aa_south_hospital_cancer_analysis_analyze" organization="south_hospital" view="activity_assignment_view"/>
+<object_assignment creationDate="2012.03.19 14:38:42" object="ah_city_hospital_write_handle" organization="city_hospital" view="activity_hierarchy_view"/>
+<object_assignment creationDate="2017.04.12 11:28:23" object="ra_city_hospital_janderson_anesthetist" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="role_transfer_view" organization="adOrBAC" view="role_transfer_view"/>
+<object_assignment creationDate="2017.04.12 13:27:46" object="ra_city_hospital_orto2_ortopedista" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="admin_manage_license_view" organization="adOrBAC" view="license_view"/>
+<object_assignment creationDate="2017.04.12 13:28:04" object="ra_city_hospital_orto3_ortopedista" organization="city_hospital" view="role_assignment_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="vh_adOrBAC_role_transfer_view_role_delegation_view" organization="adOrBAC" view="view_hierarchy_view"/>
+<object_assignment creationDate="2017.04.13 14:03:02" object="aa_adOrBAC_manage_manage" organization="adOrBAC" view="activity_assignment_view"/>
+<role_separation_constraint creationDate="2012.03.19 14:38:42" first_entity="nurse" first_organization="city_hospital" second_entity="extern" second_organization="city_hospital"/>
+<rule_priority creationDate="2012.03.19 14:38:42" first_organization="city_hospital" first_rule="p7" second_organization="city_hospital" second_rule="i3"/>
+</abstractPolicy>
+<classes>
+<class name="commitment_class">
+<attribute name="task" value="null"/>
+<attribute name="violationContext" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="obligator" value="null"/>
+<attribute name="obligatee" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="user_password_class">
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</class>
+<class name="inhibition_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="role_hierarchy_class">
+<attribute name="senior_role" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_role" value="null"/>
+</class>
+<class name="bio_sample">
+<attribute name="patient" value="none"/>
+<attribute name="type" value="na"/>
+</class>
+<class name="activity_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+</class>
+<class name="activity_hierarchy_class">
+<attribute name="authority" value="null"/>
+<attribute name="senior_activity" value="null"/>
+<attribute name="junior_activity" value="null"/>
+</class>
+<class name="patient_data">
+<attribute name="ss_number" value="0"/>
+<attribute name="anesthesia" value="false"/>
+</class>
+<class name="license_class">
+<attribute name="authority" value="null"/>
+<attribute name="grantee" value="null"/>
+<attribute name="context" value="null"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="null"/>
+<attribute name="target" value="null"/>
+</class>
+<class name="view_hierarchy_class">
+<attribute name="senior_view" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="junior_view" value="null"/>
+</class>
+<class name="role_assignment_class">
+<attribute name="assignment" value="null"/>
+<attribute name="authority" value="null"/>
+<attribute name="assignee" value="null"/>
+<attribute name="grantor" value="null"/>
+</class>
+</classes>
+<subjects>
+<subject name="orto1">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="orto3">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="city_hospital"/>
+<subject name="orto2">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="janderson">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="admin">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="333547411228765445654476765417741474654083165475"/>
+</subject>
+<subject name="south_hospital"/>
+<subject name="Edouard">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="Patrice">
+<instance_of name="user_password_class"/>
+<instance_of name="patient_data"/>
+<attribute name="ss_number" value="0"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+<attribute name="anesthesia" value="false"/>
+</subject>
+<subject name="Carol">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="Paul">
+<instance_of name="user_password_class"/>
+<instance_of name="patient_data"/>
+<attribute name="ss_number" value="0"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+<attribute name="anesthesia" value="false"/>
+</subject>
+<subject name="Etienne">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="north_hospital"/>
+<subject name="Alana">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="adOrBAC"/>
+<subject name="Isabelle">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="Chris">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="Peter">
+<instance_of name="user_password_class"/>
+<instance_of name="patient_data"/>
+<attribute name="ss_number" value="0"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+<attribute name="anesthesia" value="false"/>
+</subject>
+<subject name="Sandrine">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+<subject name="Carlos">
+<instance_of name="user_password_class"/>
+<attribute name="adorbacUserPasswordHash" value="null"/>
+</subject>
+</subjects>
+<actions>
+<action name="blood_analysis"/>
+<action name="aOperate"/>
+<action name="read_db"/>
+<action name="handle_db"/>
+<action name="prescribe_medecine"/>
+<action name="prescribe_rdv"/>
+<action name="cancer_analysis"/>
+<action name="write_db"/>
+</actions>
+<objects>
+<object name="ah_city_hospital_read_handle">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="senior_activity" value="handle"/>
+<attribute name="junior_activity" value="read"/>
+</object>
+<object name="ra_city_hospital_orto3_ortopedista">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="ortopedista"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="orto3"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="ra_city_hospital_Etienne_extern">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="extern"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Etienne"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_adOrBAC_manage_manage">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="manage"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="manage"/>
+</object>
+<object name="ra_city_hospital_orto2_ortopedista">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="ortopedista"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="orto2"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="vh_adOrBAC_role_delegation_view_role_assignment_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_assignment_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_delegation_view"/>
+</object>
+<object name="aa_city_hospital_prescribe_rdv_prescribe_appointment">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="prescribe_appointment"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="prescribe_rdv"/>
+</object>
+<object name="vh_city_hospital_medical_data_medical_file">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="medical_file"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_view" value="medical_data"/>
+</object>
+<object name="ra_city_hospital_orto1_ortopedista">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="ortopedista"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="orto1"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="ah_adOrBAC_delete_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="delete"/>
+</object>
+<object name="aa_adOrBAC_revoke_revoke">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="revoke"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="revoke"/>
+</object>
+<object name="rh_city_hospital_specialist_hospital_doctor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="hospital_doctor"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="specialist"/>
+</object>
+<object name="ra_city_hospital_Edouard_extern">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="extern"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Edouard"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_city_hospital_prescribe_medecine_prescribe_prescription">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="prescribe_prescription"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="prescribe_medecine"/>
+</object>
+<object name="aa_city_hospital_read_db_read">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="read"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="read_db"/>
+</object>
+<object name="ra_city_hospital_Chris_surgeon">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="surgeon"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Chris"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="o1">
+<instance_of name="commitment_class"/>
+<attribute name="task" value="operate"/>
+<attribute name="violationContext" value="no_anesthesia"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="context" value="anesthesic_patient"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="obligator" value="null"/>
+<attribute name="obligatee" value="surgeon"/>
+<attribute name="target" value="vPatient"/>
+</object>
+<object name="patrice_personnal_data"/>
+<object name="vh_adOrBAC_role_transfer_view_role_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="role_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="role_transfer_view"/>
+</object>
+<object name="aa_adOrBAC_delete_delete">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delete"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delete"/>
+</object>
+<object name="rh_city_hospital_anesthetist_specialist">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="specialist"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="anesthetist"/>
+</object>
+<object name="ra_city_hospital_janderson_anesthetist">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="anesthetist"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="janderson"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="patrice_admin_data"/>
+<object name="rh_city_hospital_ortopedista_liberal_doctor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="liberal_doctor"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="ortopedista"/>
+</object>
+<object name="aa_adOrBAC_create_create">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="create"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="create"/>
+</object>
+<object name="aa_adOrBAC_delegate_delegate">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="delegate"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="delegate"/>
+</object>
+<object name="ah_city_hospital_write_handle">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="senior_activity" value="handle"/>
+<attribute name="junior_activity" value="write"/>
+</object>
+<object name="aa_city_hospital_write_db_write">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="write"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="write_db"/>
+</object>
+<object name="vh_adOrBAC_license_transfer_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_transfer_view"/>
+</object>
+<object name="ah_city_hospital_prescribe_appointment_prescribe">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="senior_activity" value="prescribe"/>
+<attribute name="junior_activity" value="prescribe_appointment"/>
+</object>
+<object name="vh_adOrBAC_license_delegation_view_license_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="license_delegation_view"/>
+</object>
+<object name="p1">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="extern"/>
+<attribute name="context" value="sample_analysis"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="analyze"/>
+<attribute name="target" value="sample"/>
+</object>
+<object name="p2">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="intern"/>
+<attribute name="context" value="intern_presc_hour"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="prescribe_prescription"/>
+<attribute name="target" value="vPatient"/>
+</object>
+<object name="rh_city_hospital_intern_student">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="student"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="intern"/>
+</object>
+<object name="p3">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="medical_secretary"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="prescribe_appointment"/>
+<attribute name="target" value="vPatient"/>
+</object>
+<object name="p4">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="nurse"/>
+<attribute name="context" value="morning"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="analyze"/>
+<attribute name="target" value="sample"/>
+</object>
+<object name="p5">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="doctor"/>
+<attribute name="context" value="referent_doctor"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="read"/>
+<attribute name="target" value="medical_file"/>
+</object>
+<object name="p6">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="doctor"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="write"/>
+<attribute name="target" value="medical_file"/>
+</object>
+<object name="p7">
+<instance_of name="license_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="extern"/>
+<attribute name="context" value="emergency_ctx"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="read"/>
+<attribute name="target" value="medical_data"/>
+</object>
+<object name="admin_manage_license_view">
+<instance_of name="license_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="grantee" value="admin"/>
+<attribute name="context" value="default_context"/>
+<attribute name="parentLicense" value="null"/>
+<attribute name="grantor" value="null"/>
+<attribute name="privilege" value="manage"/>
+<attribute name="target" value="license_view"/>
+</object>
+<object name="vh_adOrBAC_grant_option_view_license_delegation_view">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="license_delegation_view"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="junior_view" value="grant_option_view"/>
+</object>
+<object name="aa_city_hospital_aOperate_operate">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="operate"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="aOperate"/>
+</object>
+<object name="ra_city_hospital_Alana_specialist">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="specialist"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Alana"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="rh_city_hospital_surgeon_specialist">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="specialist"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="surgeon"/>
+</object>
+<object name="vh_city_hospital_personal_data_medical_file">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="medical_file"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_view" value="personal_data"/>
+</object>
+<object name="ra_city_hospital_Sandrine_medical_secretary">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="medical_secretary"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Sandrine"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_adOrBAC_transfer_transfer">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="transfer"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="assignee" value="transfer"/>
+</object>
+<object name="ra_south_hospital_Carol_nurse">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="nurse"/>
+<attribute name="authority" value="south_hospital"/>
+<attribute name="assignee" value="Carol"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="aa_city_hospital_handle_db_handle">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="handle"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="handle_db"/>
+</object>
+<object name="sample1">
+<instance_of name="bio_sample"/>
+<attribute name="patient" value="Patrice"/>
+<attribute name="type" value="blood"/>
+</object>
+<object name="aa_north_hospital_blood_analysis_analyze">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="analyze"/>
+<attribute name="authority" value="north_hospital"/>
+<attribute name="assignee" value="blood_analysis"/>
+</object>
+<object name="rh_city_hospital_liberal_doctor_doctor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="doctor"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="liberal_doctor"/>
+</object>
+<object name="ah_adOrBAC_create_manage">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="adOrBAC"/>
+<attribute name="senior_activity" value="manage"/>
+<attribute name="junior_activity" value="create"/>
+</object>
+<object name="rh_city_hospital_hospital_doctor_doctor">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="doctor"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="hospital_doctor"/>
+</object>
+<object name="rh_city_hospital_extern_student">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="student"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="extern"/>
+</object>
+<object name="i1">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="extern"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="prescribe_prescription"/>
+<attribute name="target" value="vPatient"/>
+</object>
+<object name="i2">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="medical_secretary"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="handle"/>
+<attribute name="target" value="medical_data"/>
+</object>
+<object name="i3">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="extern"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="handle"/>
+<attribute name="target" value="medical_file"/>
+</object>
+<object name="i4">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="ortopedista"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="analyze"/>
+<attribute name="target" value="medical_file"/>
+</object>
+<object name="i5">
+<instance_of name="inhibition_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="grantee" value="orto1"/>
+<attribute name="context" value="default_context"/>
+<attribute name="privilege" value="analyze"/>
+<attribute name="target" value="medical_file"/>
+</object>
+<object name="sample3">
+<instance_of name="bio_sample"/>
+<attribute name="patient" value="Peter"/>
+<attribute name="type" value="lymph"/>
+</object>
+<object name="sample2">
+<instance_of name="bio_sample"/>
+<attribute name="patient" value="Paul"/>
+<attribute name="type" value="biopsy"/>
+</object>
+<object name="aa_south_hospital_cancer_analysis_analyze">
+<instance_of name="activity_assignment_class"/>
+<attribute name="assignment" value="analyze"/>
+<attribute name="authority" value="south_hospital"/>
+<attribute name="assignee" value="cancer_analysis"/>
+</object>
+<object name="ra_city_hospital_Isabelle_intern">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="intern"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Isabelle"/>
+<attribute name="grantor" value="null"/>
+</object>
+<object name="patrice_medical_data"/>
+<object name="vh_city_hospital_admin_data_medical_file">
+<instance_of name="view_hierarchy_class"/>
+<attribute name="senior_view" value="medical_file"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_view" value="admin_data"/>
+</object>
+<object name="ah_city_hospital_prescribe_prescription_prescribe">
+<instance_of name="activity_hierarchy_class"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="senior_activity" value="prescribe"/>
+<attribute name="junior_activity" value="prescribe_prescription"/>
+</object>
+<object name="rh_city_hospital_medical_secretary_secretary">
+<instance_of name="role_hierarchy_class"/>
+<attribute name="senior_role" value="secretary"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="junior_role" value="medical_secretary"/>
+</object>
+<object name="ra_city_hospital_Carlos_anesthetist">
+<instance_of name="role_assignment_class"/>
+<attribute name="assignment" value="anesthetist"/>
+<attribute name="authority" value="city_hospital"/>
+<attribute name="assignee" value="Carlos"/>
+<attribute name="grantor" value="null"/>
+</object>
+</objects>
+<comments>
+<abstract_rules/>
+</comments>
+</XmlOrbacPolicy>

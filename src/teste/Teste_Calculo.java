@@ -1,6 +1,6 @@
 package teste;
 
-import afetados.SubjectsAffecteds;
+import control.SubjectsAffecteds;
 import orbac.AbstractOrbacPolicy;
 import orbac.COrbacCore;
 import orbac.exception.COrbacException;

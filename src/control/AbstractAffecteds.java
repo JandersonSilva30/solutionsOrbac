@@ -1,4 +1,4 @@
-package afetados;
+package control;
 
 import metados.LoadPolicyAll;
 import orbac.AbstractOrbacPolicy;

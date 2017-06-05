@@ -5,9 +5,9 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import afetados.ActionsAffecteds;
-import afetados.ObjectsAffecteds;
-import afetados.SubjectsAffecteds;
+import control.ActionsAffecteds;
+import control.ObjectsAffecteds;
+import control.SubjectsAffecteds;
 import metados.LoadPolicyAll;
 import orbac.AbstractOrbacPolicy;
 import orbac.conflict.CAbstractConflict;
