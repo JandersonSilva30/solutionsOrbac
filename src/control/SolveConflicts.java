@@ -33,10 +33,12 @@ public class SolveConflicts {
 	
 	public void solveConfli() throws COrbacException{
 		
+				
 		for(CAbstractConflict c : p.GetAbstractConflicts()){
 			this.appyPriority(c);			
 		}
 		
+				
 		System.out.println("regras ja aplicadas");
 		
 		
@@ -57,6 +59,7 @@ public class SolveConflicts {
 		
 		new ExibirScore();
 		
+		//descomentar na versao final
 		//this.savePolicy();		
 		
 	}

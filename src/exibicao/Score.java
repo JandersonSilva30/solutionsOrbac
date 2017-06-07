@@ -46,6 +46,7 @@ public final class Score {
 	//Metodo responsavel em preencher a hashmap "valores"
 	private void preencheValores(){
 		
+				
 		Set<String> idRule = this.abstractRules.keySet();     // obtem as chaves do MAP
 		
 		System.out.println("Quantidade de regras encontradas: "+ abstractRules.size());   //apenas informa o numeor de objetos no MAP
@@ -63,6 +64,8 @@ public final class Score {
 			}			
 			
 		}
+		
+		
 		
 		this.imprime();
 	}

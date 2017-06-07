@@ -1,5 +1,10 @@
 package exibicao;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.JOptionPane;
 
 import metados.LoadSystem;
@@ -11,34 +16,33 @@ public class Roda_Sistema {
 		
 		
 		//memoria total
-		long memtotal1 = Runtime.getRuntime().totalMemory();
+		//long memtotal1 = Runtime.getRuntime().totalMemory();
 		
-//		//memoria livre		
-		long memLivre1= Runtime.getRuntime().freeMemory();
+	   //memoria livre		
+		//long memLivre1= Runtime.getRuntime().freeMemory();
 		
+				
 		//long initialTime = System.nanoTime();
-		
-		long initialTime = System.currentTimeMillis();
 			
 		
 		new LoadSystem();
 		
 		//long tempoTotal= (System.nanoTime() - initialTime);
-		long tempoTotal= (System.currentTimeMillis() - initialTime);
 		
-		long memtotal2 = Runtime.getRuntime().totalMemory();
-		long memLivre2= Runtime.getRuntime().freeMemory();
 		
-		long memConsumida = memLivre1 - memLivre2;
+		//long memtotal2 = Runtime.getRuntime().totalMemory();
+		//long memLivre2= Runtime.getRuntime().freeMemory();
 		
-		String relat = "Memoria Inicial: "+ memtotal1 + 
-						"\nMemoria Livre inicial: "+ memLivre1 +
-						"\n\nTempo Total de execução: " + tempoTotal+
-						"\n\nMemoria Consumida: "+ memConsumida+
-						"\n\nMemoria Total Final: "+ memtotal2+
-						"\nMemoria Livre Final: "+memLivre2;
+		//long memConsumida = memLivre1 - memLivre2;
 		
-		JOptionPane.showMessageDialog(null, relat);
+//		String relat = "Memoria Inicial: "+ memtotal1 + 
+//						"\nMemoria Livre inicial: "+ memLivre1 +
+//						"\n\nTempo Total de execução: " + tempoTotal+
+//						"\n\nMemoria Consumida: "+ memConsumida+
+//						"\n\nMemoria Total Final: "+ memtotal2+
+//						"\nMemoria Livre Final: "+memLivre2;
+		
+		//JOptionPane.showMessageDialog(null, relat);
 		
 
 	}
